@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_DATABASE: your_database_name
+      DB_USERNAME: your_database_username
+      DB_PASSWORD: your_database_password
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mysql:8
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: epdv
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    ports:
+      - "3306:3306"
