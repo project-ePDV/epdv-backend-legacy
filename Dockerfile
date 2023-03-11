@@ -20,6 +20,8 @@ RUN a2enmod rewrite
 # Set the working directory to /var/www/html
 WORKDIR /var/www/html
 
+
+
 # Download and extract CodeIgniter 4
 RUN curl -LOk https://github.com/codeigniter4/CodeIgniter4/archive/v4.1.4.zip && \
     unzip v4.1.4.zip && \
@@ -40,9 +42,9 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Set environment variables for MySQL connection
 ENV DB_HOST=mysql \
-    DB_DATABASE=epdv \
-    DB_USERNAME=root \
-    DB_PASSWORD=
+    DB_DATABASE=db_epdv \
+    DB_USERNAME=admin_epdv \
+    DB_PASSWORD=admin123
 
 # Expose port 80 for Apache
 EXPOSE 80
@@ -50,4 +52,6 @@ EXPOSE 80
 # Start Apache web server
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
+RUN composer create-project codeigniter4/appstarter 
+RUN composer update
 RUN composer install
