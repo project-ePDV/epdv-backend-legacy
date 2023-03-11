@@ -52,6 +52,7 @@ EXPOSE 80
 # Start Apache web server
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
+RUN cd /var/www/html
 RUN composer create-project codeigniter4/appstarter 
 RUN composer update
 RUN composer install
