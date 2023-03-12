@@ -36,7 +36,8 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Dar permissão no diretorio html
-RUN chmod -R 666 /var/www/html
+RUN chmod -R 777 /var/www/html/public
+RUN chmod -R 777 /var/www/html/writable
 
 # Set environment variables for MySQL connection
 ENV DB_HOST = db_epdv \
