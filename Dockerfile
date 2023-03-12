@@ -39,10 +39,10 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod -R 666 /var/www/html
 
 # Set environment variables for MySQL connection
-ENV DB_HOST = mysql \
+ENV DB_HOST = db_epdv \
     DB_DATABASE = db_epdv \
-    DB_USERNAME = admin_epdv \
-    DB_PASSWORD = 1234
+    DB_USERNAME = admin \
+    DB_PASSWORD = admin123
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 ENV APACHE_LOG_DIR /var/log/apache2
