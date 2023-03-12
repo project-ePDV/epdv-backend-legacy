@@ -20,7 +20,7 @@ RUN a2enmod rewrite
 # Set the working directory to /var/www/html
 WORKDIR /var/www/html
 
-
+RUN chown -R www-data:www-data /var/www/html
 
 # Download and extract CodeIgniter 4
 RUN curl -LOk https://github.com/codeigniter4/CodeIgniter4/archive/v4.1.4.zip && \
