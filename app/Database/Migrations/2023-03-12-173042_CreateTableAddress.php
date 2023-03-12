@@ -20,9 +20,9 @@ class CreateTableAddress extends Migration
                 'null'       => true
             ],
             'number' => [
-                'type' => 'VARCHAR',
-                'constraint' => '5',
-                'null' => false
+                'type'          => 'VARCHAR',
+                'constraint'    => '5',
+                'null'          => false
             ],
             'district' => [
                 'type'       => 'VARCHAR',
@@ -30,9 +30,9 @@ class CreateTableAddress extends Migration
                 'null'       => true
             ],
             'city' => [
-                'type' => 'VARCHAR',
-                'constraint' => '50',
-                'null' => false
+                'type'          => 'VARCHAR',
+                'constraint'    => '50',
+                'null'          => false
             ],
             'state' => [
                 'type'       => 'VARCHAR',
@@ -40,9 +40,9 @@ class CreateTableAddress extends Migration
                 'null'       => true
             ],
             'cep' => [
-                'type' => 'VARCHAR',
-                'constraint' => '8',
-                'null' => false
+                'type'          => 'VARCHAR',
+                'constraint'    => '8',
+                'null'          => false
             ],
         ]);
         $this->forge->addKey('id', true);

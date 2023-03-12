@@ -19,9 +19,9 @@ class CreateTableRequest extends Migration
                 'null'       => false
             ],
             'value' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
-                'null' => false
+                'type'          => 'DECIMAL',
+                'constraint'    => '10,2',
+                'null'          => false
             ],
             'fk_costumer' => [
                 'type'       => 'VARCHAR',

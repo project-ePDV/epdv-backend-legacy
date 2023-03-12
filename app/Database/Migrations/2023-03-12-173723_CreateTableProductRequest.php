@@ -16,12 +16,12 @@ class CreateTableProductRequest extends Migration
             ],
             'fk_product'     => [
                 'type'       => 'INT',
-                'unsigned'       => true,
+                'unsigned'   => true,
                 'null'       => false
             ],
             'fk_request'     => [
                 'type'       => 'INT',
-                'unsigned'       => true,
+                'unsigned'   => true,
                 'null'       => false
             ]
         ]);

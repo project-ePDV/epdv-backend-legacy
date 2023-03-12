@@ -20,9 +20,9 @@ class CreateTableCostumer extends Migration
                 'null'       => false
             ],
             'rg' => [
-                'type' => 'VARCHAR',
-                'constraint' => '9',
-                'null' => false
+                'type'          => 'VARCHAR',
+                'constraint'    => '9',
+                'null'          => false
             ],
             'email' => [
                 'type'       => 'VARCHAR',
@@ -30,14 +30,14 @@ class CreateTableCostumer extends Migration
                 'null'       => true
             ],
             'telephone' => [
-                'type' => 'VARCHAR',
-                'constraint' => '11',
-                'null' => false
+                'type'          => 'VARCHAR',
+                'constraint'    => '11',
+                'null'          => false
             ],
             'fk_address' => [
-                'type'       => 'INT',
-                'unsigned'       => true,
-                'null'       => true
+                'type'          => 'INT',
+                'unsigned'      => true,
+                'null'          => true
             ]
         ]);
         $this->forge->addKey('cpf', true);

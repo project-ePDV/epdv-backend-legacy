@@ -20,9 +20,9 @@ class CreateTableProduct extends Migration
                 'null'       => false
             ],
             'amount' => [
-                'type' => 'INT',
-                'constraint' => '4',
-                'null' => false
+                'type'          => 'INT',
+                'constraint'    => '4',
+                'null'          => false
             ],
             'brand' => [
                 'type'       => 'VARCHAR',
@@ -30,9 +30,9 @@ class CreateTableProduct extends Migration
                 'null'       => true
             ],
             'price' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
-                'null' => false
+                'type'          => 'DECIMAL',
+                'constraint'    => '10,2',
+                'null'          => false
             ],
         ]);
         $this->forge->addKey('id', true);
