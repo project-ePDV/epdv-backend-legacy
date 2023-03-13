@@ -9,22 +9,30 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: mysql
+      DB_HOST: db_epdv
       DB_DATABASE: db_epdv
-      DB_USERNAME: admin_epdv
+      DB_USERNAME: admin
       DB_PASSWORD: admin123
     ports:
       - "8000:80"
     volumes:
       - .:/var/www/html
+    networks:
+      - epdv
 
   db:
     image: mysql:8
     container_name: db_epdv
     environment:
-      MYSQL_ROOT_PASSWORD: admin123
       MYSQL_DATABASE: db_epdv
-      MYSQL_USER: admin_epdv
-      MYSQL_PASSWORD: 1234
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: admin123
     ports:
       - "3306:3306"
+    networks:
+      - epdv
+
+networks:
+  epdv:
+    driver: bridge
