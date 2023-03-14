@@ -37,6 +37,7 @@ $routes->get('/', 'Home::index');
 
 // Product controller
 $routes->get('/produtos', 'Product::index');
+$routes->get('/produtos/page/(:any)/size/(:any)', 'Product::index/$1/$2');
 
 /*
  * --------------------------------------------------------------------

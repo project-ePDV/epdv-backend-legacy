@@ -9,12 +9,12 @@ use Exception;
 
 class Product extends BaseController
 {
-    public function index()
+    public function index($page, $size)
     {
         try {
             $response = new ProductsResponse();
             $response->setStatus(200);
-            return $response->pageableProducts(1, 6);
+            return $response->pageableProducts($page, $size);
         } catch(Exception $error) {
             $response->setStatus(500);
             return $response->error($error);
