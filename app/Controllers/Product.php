@@ -19,6 +19,5 @@ class Product extends BaseController
             $response->setStatus(500);
             return $response->error($error);
         }
-
     }
 }

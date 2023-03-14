@@ -22,7 +22,7 @@ class ProductsResponse
     public function pageableProducts($page, $size) 
     {
         $productsList = new ProductsDTO();
-        $this->records = $productsList->storage();
+        $this->records = $productsList->pageableProducts($page, $size);
 
         header('Content-Type: application/json');
         return json_encode(array(
