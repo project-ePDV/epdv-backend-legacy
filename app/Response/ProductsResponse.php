@@ -19,7 +19,7 @@ class ProductsResponse
         $this->status = $status;
     }
 
-    public function pageableProducts($page, $size) 
+    public function responsePageableProducts($page, $size) 
     {
         $productsList = new ProductsDTO();
         $this->records = $productsList->pageableProducts($page, $size);
@@ -31,6 +31,23 @@ class ProductsResponse
             'date' => date('Y-m-d H:i:s', $this->timestamp),
             'page' => $page,
             'size' => $size,
+            'records' => $this->records
+        ));
+    }
+
+    public function responseFilteredProducts($filter, $value, $page, $size) 
+    {
+        $productsList = new ProductsDTO();
+        $this->records = $productsList->filteredProducts($filter, $value, $page, $size);
+
+        header('Content-Type: application/json');
+        return json_encode(array(
+            'status' => $this->status,
+            'timestamp' => $this->timestamp,
+            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'page' => $page,
+            'size' => $size,
+            'filter' => $filter,
             'records' => $this->records
         ));
     }
