@@ -38,6 +38,8 @@ $routes->get('/', 'Home::index');
 // Product controller
 $routes->get('/produtos', 'Product::index');
 
+$routes->get('/register/(:any)', 'Register::index/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
