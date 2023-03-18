@@ -17,10 +17,19 @@ class ProductsDTO extends ProductsModel
             ->getResult();
     }
 
-    public function PageableProducts($page, $size) {
+    public function pageableProducts($page, $size) {
         return $this->db
             ->table('product')
             ->select('id, name, amount')
+            ->get($size, ($page - 1))
+            ->getResult();
+    }
+
+    public function filteredProducts($filter, $value, $page, $size) {
+        return $this->db
+            ->table('product')
+            ->select('id, name, amount')
+            ->where($filter, $value)
             ->get($size, ($page - 1))
             ->getResult();
     }
