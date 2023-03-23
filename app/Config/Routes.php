@@ -32,14 +32,38 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// Home controller
+// Home route
 $routes->get('/', 'Home::index');
 
-// Product controller
-$routes->get('/produtos', 'Product::index');
+// Product route
 
-// Sign controller
-$routes->post('/sign', 'Sign::index');
+// listar produtos
+$routes->get('/api/(:any)/produtos', 'Product::index/$user');
+// retornar 1 produto pelo id
+$routes->get('/api/(:any)/produtos/(:any)', 'Product::index/$user/$id');
+// inserir produto
+$routes->post('/api/(:any)/admin/produtos', 'Product::index/$user');
+// deletar produto
+$routes->delete('/api/(:any)/admin/produtos', 'Product::index/$user');
+// atualizar produto
+$routes->put('/api/(:any)/admin/produtos', 'Product::index/$user');
+
+// User route
+// retorna dados basicos do usuario logado
+$routes->get('/api/(:any)/user', 'Product::index/$user');
+// retorna detalhes do usuario logado
+$routes->get('/api/(:any)/user/profile', 'Product::index/$user');
+// inserir produto
+$routes->post('/api/(:any)/user/profile', 'Product::index/$user');
+// deletar produto
+$routes->delete('/api/(:any)/user/profile', 'Product::index/$user');
+// atualizar produto
+$routes->put('/api/(:any)/user/profile', 'Product::index/$user');
+
+
+
+// Sign route
+$routes->post('/api/sign', 'Sign::index');
 
 /*
  * --------------------------------------------------------------------
