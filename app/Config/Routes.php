@@ -38,7 +38,8 @@ $routes->get('/', 'Home::index');
 // Product controller
 $routes->get('/produtos', 'Product::index');
 
-$routes->get('/register/(:any)', 'Register::index/$1');
+// Sign controller
+$routes->post('/sign', 'Sign::index');
 
 /*
  * --------------------------------------------------------------------
