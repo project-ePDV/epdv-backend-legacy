@@ -17,12 +17,12 @@ class Product extends BaseController
         $page = $this->request->getGet('page');
         $size = $this->request->getGet('size');
 
+        $response = new ProductsResponse();
         try {
-            $response = new ProductsResponse();
             $response->setStatus(200);
             if ($filter) return $response->responseFilteredProducts($filter, $value, $page, $size);
             return $response->responsePageableProducts($page, $size);
-        } catch(Exception $error) {
+        } catch (Exception $error) {
             $response->setStatus(500);
             return $response->error($error);
         }
@@ -30,7 +30,6 @@ class Product extends BaseController
 
     public function getProductsFilter()
     {
-
         $filter = $this->request->getGet('filter');
         $value = $this->request->getGet('value');
         $page = $this->request->getGet('page');
@@ -40,7 +39,7 @@ class Product extends BaseController
             $response = new ProductsResponse();
             $response->setStatus(200);
             return $response->responseFilteredProducts($filter, $value, $page, $size);
-        } catch(Exception $error) {
+        } catch (Exception $error) {
             $response->setStatus(500);
             return $response->error($error);
         }

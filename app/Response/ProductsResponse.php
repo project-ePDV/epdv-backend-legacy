@@ -35,7 +35,7 @@ class ProductsResponse
         ));
     }
 
-    public function responseFilteredProducts($filter, $value, $page, $size) 
+    public function responseFilteredProducts($filter, $value, $page, $size)
     {
         $productsList = new ProductsDTO();
         $this->records = $productsList->filteredProducts($filter, $value, $page, $size);

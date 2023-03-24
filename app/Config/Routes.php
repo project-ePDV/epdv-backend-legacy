@@ -63,7 +63,7 @@ $routes->put('/api/(:any)/user/profile', 'Product::index/$user');
 
 
 // Sign route
-$routes->post('/api/sign', 'Sign::index');
+$routes->post('/sign/register', 'Sign::index');
 
 /*
  * --------------------------------------------------------------------
