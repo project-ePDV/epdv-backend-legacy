@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Models\ProductsModel;
+use App\Utils\UserDatabaseModel;
 
 class ProductsDTO extends ProductsModel
 {
@@ -17,8 +18,12 @@ class ProductsDTO extends ProductsModel
             ->getResult();
     }
 
-    public function pageableProducts($page, $size) {
-        return $this->db
+    public function pageableProducts($page, $size, $dabatase) {
+        $db = new UserDatabaseModel($dabatase);
+
+
+        $db = \Config\Database::connect($db->getConnection(), false);
+        return $db
             ->table('product')
             ->select('id, name, amount')
             ->get($size, ($page - 1))

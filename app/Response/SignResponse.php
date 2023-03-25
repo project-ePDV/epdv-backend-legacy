@@ -8,7 +8,7 @@ class SignResponse
 {
     private $timestamp;
     private $records;
-    private $status;
+    private $status = 200;
 
     public function __construct() {
         $this->timestamp = time();
@@ -19,14 +19,23 @@ class SignResponse
         $this->status = $status;
     }
 
-    public function error($error)
+    public function registerSuccess($message)
     {
-        header('Content-Type: application/json');
-        return json_encode(array(
+        return (array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
             'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'message' => $error->getMessage()
+            'message' => $message
         ));
+    }
+
+    public function error($message)
+    {
+        return array(
+            'status' => $this->status,
+            'timestamp' => $this->timestamp,
+            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'message' => $message
+        );
     }
 }

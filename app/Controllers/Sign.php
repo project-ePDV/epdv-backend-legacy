@@ -2,13 +2,13 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Models\DatabaseUserQueries;
-use App\Models\UserDatabaseModel;
+use App\Utils\DatabaseUserQueries;
+use App\Utils\UserDatabaseModel;
 use App\Response\SignResponse;
+use CodeIgniter\RESTful\ResourceController;
 use Exception;
 
-class Sign extends BaseController
+class Sign extends ResourceController
 {
     public function index()
     {
@@ -28,6 +28,8 @@ class Sign extends BaseController
         ];
 
         $response = new SignResponse();
+        $err = $response->error('Internal Server Error');
+        $success = $response->registerSuccess('Success');
 
         try {
             $newUserDB = new UserDatabaseModel($name);
@@ -35,7 +37,8 @@ class Sign extends BaseController
             $db = $newUserDB->createUserDB();
         } catch (Exception $error) {
             $response->setStatus(500);
-            return $response->error($error);
+            $err = $response->error('Não foi possível criar novo usuário');
+            return $this->respond($err, 500, 'Internal Server Error');
         }
         
         try {
@@ -46,8 +49,9 @@ class Sign extends BaseController
             $builder->insert($data);
         } catch (Exception $error) {
             $response->setStatus(500);
-            return $response->error($error);
+            $err = $response->error('Usuário já exite');
+            return $this->respond($err, 500, 'Internal Server Error');
         }
-        
+        return $this->respond($success, 200);
     }
 }

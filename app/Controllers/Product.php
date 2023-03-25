@@ -3,12 +3,13 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-
+use App\DTO\ProductsDTO;
 use App\Response\ProductsResponse;
 use CodeIgniter\HTTP\Request;
+use CodeIgniter\RESTful\ResourceController;
 use Exception;
 
-class Product extends BaseController
+class Product extends ResourceController
 {
     public function index()
     {
@@ -18,13 +19,17 @@ class Product extends BaseController
         $size = $this->request->getGet('size');
 
         $response = new ProductsResponse();
+        $err = $response->error('Internal Server Error');
+        $database = $this->request->uri->getSegment(2);
+        
         try {
-            $response->setStatus(200);
-            if ($filter) return $response->responseFilteredProducts($filter, $value, $page, $size);
-            return $response->responsePageableProducts($page, $size);
+            $data = $response->responsePageableProducts($page, $size, $database);
+            if (isset($filter) && isset($value)) {
+                $data = $response->responseFilteredProducts($filter, $value, $page, $size);
+            }
+            return $this->respond($data, 200, 'success');
         } catch (Exception $error) {
-            $response->setStatus(500);
-            return $response->error($error);
+            return $this->respond($err, 500, 'Internal Server Error');
         }
     }
 
@@ -35,13 +40,13 @@ class Product extends BaseController
         $page = $this->request->getGet('page');
         $size = $this->request->getGet('size');
 
+        $response = new ProductsResponse();
+        $err = $response->error('Internal Server Error');
+
         try {
-            $response = new ProductsResponse();
-            $response->setStatus(200);
             return $response->responseFilteredProducts($filter, $value, $page, $size);
         } catch (Exception $error) {
-            $response->setStatus(500);
-            return $response->error($error);
+            return $this->respond($err, 500, 'Internal Server Error');
         }
     }
 }
