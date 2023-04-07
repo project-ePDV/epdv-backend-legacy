@@ -19,8 +19,9 @@ class Product extends ResourceController
         $size = $this->request->getGet('size');
 
         $response = new ProductsResponse();
-        $err = $response->error('Internal Server Error');
         $database = $this->request->uri->getSegment(2);
+        $response->setStatus(500);
+        $err = $response->error('Internal Server Error');
         
         try {
             $data = $response->responsePageableProducts($page, $size, $database);

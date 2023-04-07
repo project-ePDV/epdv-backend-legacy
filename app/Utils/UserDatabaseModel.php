@@ -21,9 +21,11 @@ class UserDatabaseModel
     $forge->createDatabase($this->name, true);
 
     $db = [
-      'hostname' => $this->host,
+      'hostname' => 'localhost',
+      #'hostname' => $this->host,
       'username' => 'root',
-      'password' => $this->password,
+      'password' => '',
+      #'password' => $this->password,
       'database' => $this->name,
       'DBDriver' => 'MySQLi',
       'pConnect' => false,
@@ -36,9 +38,11 @@ class UserDatabaseModel
 
   public function getConnection() {
     return [
-      'hostname' => 'db_epdv',
+      'hostname' => 'localhost',
+      #'hostname' => 'db_epdv',
       'username' => 'root',
-      'password' => 'admin123',
+      'password' => '',
+      #'password' => 'admin123',
       'database' => $this->name,
       'DBDriver' => 'MySQLi',
       'pConnect' => false,

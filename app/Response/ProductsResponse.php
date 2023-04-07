@@ -8,13 +8,13 @@ class ProductsResponse
 {
     private $timestamp;
     private $records;
-    private $status = 200;
+    private $status;
 
     public function __construct() {
         $this->timestamp = time();
     }
 
-    public function setStatus($status)
+    public function setStatus($status = 200)
     {
         $this->status = $status;
     }
