@@ -50,20 +50,18 @@ $routes->put('/api/(:any)/admin/produtos', 'Product::index/$user');
 
 // User route
 // retorna dados basicos do usuario logado
-$routes->get('/api/(:any)/user', 'Product::index/$user');
+$routes->get('/api/(:any)/employee', 'Employee::index/$employee');
 // retorna detalhes do usuario logado
-$routes->get('/api/(:any)/user/profile', 'Product::index/$user');
-// inserir produto
-$routes->post('/api/(:any)/user/profile', 'Product::index/$user');
-// deletar produto
-$routes->delete('/api/(:any)/user/profile', 'Product::index/$user');
-// atualizar produto
-$routes->put('/api/(:any)/user/profile', 'Product::index/$user');
-
-
+$routes->get('/api/(:any)/employee/profile', 'Employee::profile/$employee');
+// inserir usuario
+$routes->post('/api/(:any)/employee/profile', 'Employee::insert/$employee');
+// deletar usuario
+$routes->delete('/api/(:any)/employee/profile', 'Employee::delete/$employee');
+// atualizar usuario
+$routes->put('/api/(:any)/employee/profile', 'Employee::update/$employee');
 
 // Sign route
-$routes->post('/sign/register', 'Sign::index');
+$routes->post('/sign/register', 'Sign::register');
 
 /*
  * --------------------------------------------------------------------

@@ -21,8 +21,7 @@ class ProductsDTO extends ProductsModel
     public function pageableProducts($page, $size, $dabatase) {
         $db = new UserDatabaseModel($dabatase);
 
-
-        $db = \Config\Database::connect($db->getConnection(), false);
+        $db = \Config\Database::connect($db->getUserConnection(), false);
         return $db
             ->table('product')
             ->select('id, name, amount')

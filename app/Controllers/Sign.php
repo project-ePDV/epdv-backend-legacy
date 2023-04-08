@@ -10,7 +10,7 @@ use Exception;
 
 class Sign extends ResourceController
 {
-    public function index()
+    public function register()
     {
 
         $name = $this->request->getVar('name');
@@ -18,7 +18,7 @@ class Sign extends ResourceController
         $password = $this->request->getVar('password');
         $confirmPassword = $this->request->getVar('confirmPassword');
         
-        $data = [
+        $firstEmployee = [
             'cpf'       => '00000000000',
             'name'      => $name,
             'rg'        => '000000000',
@@ -27,9 +27,32 @@ class Sign extends ResourceController
             'role'      => 'admin'
         ];
 
+        $user = [
+            'name'      => $name,
+            'email'     => $email,
+            'password'  => password_hash($password, PASSWORD_BCRYPT)
+        ];
+
         $response = new SignResponse();
+        $response->setStatus(201);
         $err = $response->error('Internal Server Error');
         $success = $response->registerSuccess('Success');
+
+        if ($password == $confirmPassword) {
+            try {
+                $db = \Config\Database::connect();
+                $builder = $db->table('user');
+                $builder->insert($user);
+            } catch (Exception $error) {
+                $response->setStatus(500);
+                $err = $response->error('Não foi possível criar novo usuário');
+                return $this->respond($err, 500, 'Internal Server Error');
+            }
+        } else {
+            $response->setStatus(400);
+            $err = $response->error('Dados inválidos');
+            return $this->respond($err, 400, 'Bad Request');
+        }
 
         try {
             $newUserDB = new UserDatabaseModel($name);
@@ -46,12 +69,17 @@ class Sign extends ResourceController
                 $db->query($query); // Executa o SQL
             }
             $builder = $db->table('employee');
-            $builder->insert($data);
+            $builder->insert($firstEmployee);
         } catch (Exception $error) {
-            $response->setStatus(500);
+            $response->setStatus(409);
             $err = $response->error('Usuário já exite');
-            return $this->respond($err, 500, 'Internal Server Error');
+            return $this->respond($err, 409, 'Conflict');
         }
-        return $this->respond($success, 200);
+        return $this->respond($success, 201);
+    }
+
+    public function login()
+    {
+
     }
 }
