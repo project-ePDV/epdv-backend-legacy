@@ -38,27 +38,27 @@ $routes->get('/', 'Home::index');
 // Product route
 
 // listar produtos
-$routes->get('/api/(:any)/produtos', 'Product::index/$user');
+$routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');
 // retornar 1 produto pelo id
-$routes->get('/api/(:any)/produtos/(:any)', 'Product::index/$user/$id');
+$routes->get('/api/(:any)/produtos/(:num)', 'Product::getProductById/$1/$2');
 // inserir produto
-$routes->post('/api/(:any)/admin/produtos', 'Product::index/$user');
+$routes->post('/api/(:any)/admin/produtos', 'Admin\Product::registerProduct/$1');
 // deletar produto
-$routes->delete('/api/(:any)/admin/produtos', 'Product::index/$user');
+$routes->get('/api/(:any)/admin/produtos/deletar/(:any)', 'Admin\Product::deleteProduct/$1/$2');
 // atualizar produto
-$routes->put('/api/(:any)/admin/produtos', 'Product::index/$user');
+$routes->put('/api/(:any)/admin/produtos', 'Admin\Product::updateProduct/$1');
 
 // User route
 // retorna dados basicos do usuario logado
-$routes->get('/api/(:any)/employee', 'Employee::index/$employee');
+$routes->get('/api/(:any)/employee', 'Employee::index/$1');
 // retorna detalhes do usuario logado
-$routes->get('/api/(:any)/employee/profile', 'Employee::profile/$employee');
+$routes->get('/api/(:any)/employee/profile', 'Employee::profile/$1');
 // inserir usuario
-$routes->post('/api/(:any)/employee/profile', 'Employee::insert/$employee');
+$routes->post('/api/(:any)/employee/profile', 'Employee::insert/$1');
 // deletar usuario
-$routes->delete('/api/(:any)/employee/profile', 'Employee::delete/$employee');
+$routes->delete('/api/(:any)/employee/profile', 'Employee::delete/$1');
 // atualizar usuario
-$routes->put('/api/(:any)/employee/profile', 'Employee::update/$employee');
+$routes->put('/api/(:any)/employee/profile', 'Employee::update/$1');
 
 // Sign route
 $routes->post('/sign/register', 'Sign::register');

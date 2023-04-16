@@ -38,12 +38,14 @@ class UserDatabaseModel
 
   public function getUserConnection() {
     return [
-      #'hostname' => 'localhost',
-      'hostname' => 'db_epdv',
+      'hostname' => $this->host,
       'username' => 'root',
-      #'password' => '',
       'password' => 'admin123',
       'database' => $this->name,
+      'DBDriver' => 'MySQLi',
+      'pConnect' => false,
+      'DBDebug'  => (ENVIRONMENT !== 'production'),
+      'port'     => 3306,
     ];
   }
 
