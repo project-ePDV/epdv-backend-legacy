@@ -9,4 +9,5 @@ class ProductsModel extends Model
     protected $table            = 'product';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
+    protected $allowedFields     = ['middlename'];
 }

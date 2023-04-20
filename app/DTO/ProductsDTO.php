@@ -7,35 +7,60 @@ use App\Utils\UserDatabaseModel;
 
 class ProductsDTO extends ProductsModel
 {
+    private $user;
+    private $database;
 
-    public function __construct() {
+    public function __construct($database)
+    {
         parent::__construct();
+        $this->user = new UserDatabaseModel($database);
+        $this->database = \Config\Database::connect($this->user->getUserConnection(), false);
     }
 
-    public function storage() {
-        return $this->db
+    public function getAllProducts()
+    {
+        return $this->database
             ->query('SELECT id, name, amount FROM product;')
             ->getResult();
     }
 
-    public function pageableProducts($page, $size, $dabatase) {
-        $db = new UserDatabaseModel($dabatase);
-
-
-        $db = \Config\Database::connect($db->getConnection(), false);
-        return $db
+    public function pageableProducts($page, $size, $database)
+    {
+        return $this->database
             ->table('product')
             ->select('id, name, amount')
             ->get($size, ($page - 1))
             ->getResult();
     }
 
-    public function filteredProducts($filter, $value, $page, $size) {
-        return $this->db
+    public function filteredProducts($filter, $value, $page, $size)
+    {
+        return $this->database
             ->table('product')
             ->select('id, name, amount')
             ->where($filter, $value)
             ->get($size, ($page - 1))
             ->getResult();
     }
+
+    public function productById($id)
+    {
+        return $this->database
+            ->table('product')
+            ->select('id, name, amount')
+            ->where('id', $id)
+            ->get()
+            ->getResult();
+    }
+
+    public function productDelete($id)
+    {
+        $delete = $this->database
+            ->table('product')
+            ->where('id', $id)
+            ->delete();
+
+        return $delete > 0;
+    }
+
 }
