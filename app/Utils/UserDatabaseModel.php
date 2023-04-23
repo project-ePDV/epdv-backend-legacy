@@ -2,16 +2,19 @@
 
 namespace App\Utils;
 
+use Config\Database;
+
 class UserDatabaseModel
 {
   private $name;
   private $password;
   private $host;
 
-  public function __construct($name, $password = 'admin123', $host = 'db_epdv') {
+  public function __construct($name, $password = '', $host = 'localhost') {
+    $test = new Database();
     $this->name = $name;
     $this->password = $password;
-    $this->host = $host;
+    $this->host = $test->default['hostname'] ? $test->default['hostname'] : $host;
   }
 
   public function createUserDB()
@@ -21,10 +24,8 @@ class UserDatabaseModel
     $forge->createDatabase($this->name, true);
 
     $db = [
-      #'hostname' => 'localhost',
       'hostname' => $this->host,
       'username' => 'root',
-      #'password' => '',
       'password' => $this->password,
       'database' => $this->name,
       'DBDriver' => 'MySQLi',
@@ -40,7 +41,7 @@ class UserDatabaseModel
     return [
       'hostname' => $this->host,
       'username' => 'root',
-      'password' => 'admin123',
+      'password' => $this->password,
       'database' => $this->name,
       'DBDriver' => 'MySQLi',
       'pConnect' => false,
