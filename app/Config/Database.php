@@ -32,10 +32,10 @@ class Database extends Config
      */
     public $default = [
         'DSN'      => '',
-        'hostname' => 'db_epdv',
-        'username' => 'root',
+        'hostname' => '',
+        'username' => '',
         'password' => 'admin123',
-        'database' => 'db_epdv',
+        'database' => '',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

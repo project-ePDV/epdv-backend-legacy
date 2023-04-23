@@ -36,34 +36,26 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 // Product route
-
-// listar produtos
-$routes->get('/api/(:any)/produtos', 'Product::index/$user');
-// retornar 1 produto pelo id
-$routes->get('/api/(:any)/produtos/(:any)', 'Product::index/$user/$id');
-// inserir produto
-$routes->post('/api/(:any)/admin/produtos', 'Product::index/$user');
-// deletar produto
-$routes->delete('/api/(:any)/admin/produtos', 'Product::index/$user');
-// atualizar produto
-$routes->put('/api/(:any)/admin/produtos', 'Product::index/$user');
+$routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');
+$routes->get('/api/(:any)/produtos/(:num)', 'Product::getProductById/$1/$2');
+$routes->post('/api/(:any)/admin/produtos', 'Admin\Product::registerProduct/$1');
+$routes->delete('/api/(:any)/admin/produtos/deletar/(:any)', 'Admin\Product::deleteProduct/$1/$2');
+$routes->put('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::updateProduct/$1/$2');
 
 // User route
 // retorna dados basicos do usuario logado
-$routes->get('/api/(:any)/user', 'Product::index/$user');
+$routes->get('/api/(:any)/usuario', 'Employee::index/$1');
 // retorna detalhes do usuario logado
-$routes->get('/api/(:any)/user/profile', 'Product::index/$user');
-// inserir produto
-$routes->post('/api/(:any)/user/profile', 'Product::index/$user');
-// deletar produto
-$routes->delete('/api/(:any)/user/profile', 'Product::index/$user');
-// atualizar produto
-$routes->put('/api/(:any)/user/profile', 'Product::index/$user');
-
-
+$routes->get('/api/(:any)/usuario/profile', 'Employee::profile/$1');
+// inserir usuario
+$routes->post('/api/(:any)/usuario', 'Employee::insert/$1');
+// deletar usuario
+$routes->delete('/api/(:any)/usuario/(:any)', 'Employee::delete/$1/$2');
+// atualizar usuario
+$routes->put('/api/(:any)/usuario', 'Employee::update/$1');
 
 // Sign route
-$routes->post('/sign/register', 'Sign::index');
+$routes->post('/sign/register', 'Sign::register');
 
 /*
  * --------------------------------------------------------------------
