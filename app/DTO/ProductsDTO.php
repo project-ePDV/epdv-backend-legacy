@@ -53,6 +53,24 @@ class ProductsDTO extends ProductsModel
             ->getResult();
     }
 
+    public function productSave($data)
+    {
+        $save = $this->database
+        ->table('product')
+        ->insert($data);
+
+        return $save;
+    }
+
+    public function productUpdate($data)
+    {
+        $save = $this->database
+        ->table('product')
+        ->replace($data);
+
+        return $save;
+    }
+
     public function productDelete($id)
     {
         $delete = $this->database

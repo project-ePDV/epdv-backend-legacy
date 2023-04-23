@@ -85,6 +85,28 @@ class ProductsResponse
         return $this->responseProductGeneric('Produto deletado com sucesso');
     }
 
+    public function productSave($user, $data)
+    {
+        $productDTO = new ProductsDTO($user);
+
+        if (!$productDTO->productSave($data)) {
+            throw new Exception('Não foi possível salvar os dados do produto');
+        }
+
+        return $this->responseProductGeneric('Produto cadastrado com sucesso');
+    }
+
+    public function productUpdate($user, $data)
+    {
+        $productDTO = new ProductsDTO($user);
+
+        if (!$productDTO->productUpdate($data)) {
+            throw new Exception('Não foi possível atualizar o produto');
+        }
+
+        return $this->responseProductGeneric('Produto não pode ser atualizado');
+    }
+
     public function responseProductGeneric($message)
     {
         return (array(

@@ -13,7 +13,7 @@ class UserDatabaseModel
   public function __construct($name, $password = '', $host = 'localhost') {
     $test = new Database();
     $this->name = $name;
-    $this->password = $password;
+    $this->password = $test->default['password'] ? $test->default['password'] : $host;
     $this->host = $test->default['hostname'] ? $test->default['hostname'] : $host;
   }
 

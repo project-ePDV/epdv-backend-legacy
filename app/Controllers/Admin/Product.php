@@ -13,20 +13,37 @@ class Product extends ResourceController
         // algo será feito aqui
     }
 
-    public function registerProduct()
+    public function registerProduct($user)
     {
         $data = [
-            'name'      => $this->request->getGet('name'),
-            'amount'    => $this->request->getGet('amount'),
-            'brand'     => $this->request->getGet('brand'),
-            'price'     => $this->request->getGet('price')
+            'name'      => $this->request->getVar('name'),
+            'amount'    => $this->request->getVar('amount'),
+            'brand'     => $this->request->getVar('brand'),
+            'price'     => $this->request->getVar('price')
         ];
 
         $response = new ProductsResponse();
-        $productModel = new ProductsModel();
 
-        if ($productModel->save($data)) {
+        if ($response->productSave($user, $data)) {
             $data = $response->responseProductGeneric('Produto registrado com sucesso');
+        }
+        return $this->respond($data, 200, 'success');
+    }
+
+    public function updateProduct($user, $id)
+    {
+        $data = [
+            'id'        => $id,
+            'name'      => $this->request->getVar('name'),
+            'amount'    => $this->request->getVar('amount'),
+            'brand'     => $this->request->getVar('brand'),
+            'price'     => $this->request->getVar('price')
+        ];
+
+        $response = new ProductsResponse();
+
+        if ($response->productUpdate($user, $data)) {
+            $data = $response->responseProductGeneric('Produto atualizado com sucesso');
         }
         return $this->respond($data, 200, 'success');
     }
@@ -38,14 +55,6 @@ class Product extends ResourceController
         if ($response->productDeleteById($user, $id)) {
             $data = $response->responseProductGeneric('Produto deletado com sucesso');
         }
-        return $this->respond($data, 200, 'success');
-    }
-
-    public function updateProduct($database, $id)
-    {
-        $response = new ProductsResponse();
-        $data = $response->responseProductById($database, $id);
-
         return $this->respond($data, 200, 'success');
     }
 }
