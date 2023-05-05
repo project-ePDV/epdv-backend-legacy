@@ -34,6 +34,10 @@ $routes->setAutoRoute(true);
 
 // Home route
 $routes->get('/', 'Home::index');
+//Migration Route
+
+//Vendas route
+$routes->get('/api/(:any)/vendas', 'Request::getProductsFiltered/$1');
 
 // Product route
 $routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');

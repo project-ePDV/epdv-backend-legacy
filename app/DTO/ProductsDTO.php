@@ -24,7 +24,7 @@ class ProductsDTO extends ProductsModel
             ->getResult();
     }
 
-    public function pageableProducts($page, $size, $database)
+    public function pageableProducts($page, $size)
     {
         return $this->database
             ->table('product')
@@ -56,8 +56,8 @@ class ProductsDTO extends ProductsModel
     public function productSave($data)
     {
         $save = $this->database
-        ->table('product')
-        ->insert($data);
+            ->table('product')
+            ->insert($data);
 
         return $save;
     }
@@ -65,8 +65,8 @@ class ProductsDTO extends ProductsModel
     public function productUpdate($data)
     {
         $save = $this->database
-        ->table('product')
-        ->replace($data);
+            ->table('product')
+            ->replace($data);
 
         return $save;
     }
@@ -80,5 +80,4 @@ class ProductsDTO extends ProductsModel
 
         return $delete > 0;
     }
-
 }
