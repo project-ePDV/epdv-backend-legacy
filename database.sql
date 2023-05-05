@@ -24,8 +24,8 @@ CREATE TABLE costumer (
 	rg VARCHAR(9), 
 	email VARCHAR(150),
 	telephone VARCHAR(11),
-    pk_address INT,
-    FOREIGN KEY (pk_address) REFERENCES address(id)
+    fk_address INT,
+    FOREIGN KEY (fk_address) REFERENCES address(id)
 ) engine = InnoDB;
 
 CREATE TABLE request  (
@@ -37,9 +37,9 @@ CREATE TABLE request  (
 ) engine = InnoDB;
 
 CREATE TABLE product_request (
+	id CHAR(36) NOT NULL,
 	fk_product INT,
-    fk_request INT,                        
-    PRIMARY KEY(fk_product, fk_request),
+  fk_request INT,                        
     FOREIGN KEY(fk_product) REFERENCES product(id),
     FOREIGN KEY(fk_request) REFERENCES request(id)
 ) engine = InnoDB;

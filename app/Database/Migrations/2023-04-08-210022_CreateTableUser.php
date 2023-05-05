@@ -8,6 +8,7 @@ class CreateTableUser extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('user', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',

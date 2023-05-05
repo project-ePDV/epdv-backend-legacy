@@ -8,6 +8,7 @@ class CreateTableProduct extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('product', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',

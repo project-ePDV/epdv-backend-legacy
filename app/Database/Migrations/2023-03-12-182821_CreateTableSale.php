@@ -8,6 +8,7 @@ class CreateTableSale extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('sale', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',

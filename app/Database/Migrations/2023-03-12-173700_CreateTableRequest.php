@@ -8,6 +8,7 @@ class CreateTableRequest extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('request', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -26,7 +27,7 @@ class CreateTableRequest extends Migration
             'fk_costumer' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '11',
-                'null'       => false
+                'null'       => true
             ]
         ]);
         $this->forge->addKey('id', true);

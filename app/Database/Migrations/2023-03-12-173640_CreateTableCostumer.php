@@ -8,6 +8,7 @@ class CreateTableCostumer extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('costumer', true);
         $this->forge->addField([
             'cpf' => [
                 'type'           => 'VARCHAR',

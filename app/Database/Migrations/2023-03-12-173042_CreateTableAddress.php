@@ -8,6 +8,7 @@ class CreateTableAddress extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('address', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
