@@ -22,8 +22,8 @@ class RequestsResponse
 
   public function responsePageableRequests($page, $size, $database)
   {
-    $productDTO = new RequestsDTO($database);
-    if (!$productDTO->pageableRequests($page, $size, $database)) {
+    $requestDTO = new RequestsDTO($database);
+    if (!$requestDTO->pageableRequests($page, $size, $database)) {
       throw new Exception('Não foi possível retornar as vendas');
     }
 
@@ -33,7 +33,7 @@ class RequestsResponse
       'date' => date('Y-m-d H:i:s', $this->timestamp),
       'page' => $page,
       'size' => $size,
-      'records' => $productDTO->pageableRequests($page, $size, $database)
+      'records' => $requestDTO->pageableRequests($page, $size, $database)
     ));
   }
 
@@ -56,20 +56,20 @@ class RequestsResponse
 
   public function Requestsave($user, $data)
   {
-    $productDTO = new RequestsDTO($user);
+    $requestDTO = new RequestsDTO($user);
 
-    if (!$productDTO->Requestsave($data)) {
+    if (!$requestDTO->Requestsave($data)) {
       throw new Exception('Não foi possível salvar os dados da venda');
     }
 
     return $this->responseProductGeneric('Venda cadastrado com sucesso');
   }
 
-  public function productUpdate($user, $data)
+  public function requestUpdate($user, $data)
   {
-    $productDTO = new RequestsDTO($user);
+    $requestDTO = new RequestsDTO($user);
 
-    if (!$productDTO->productUpdate($data)) {
+    if (!$requestDTO->requestUpdate($data)) {
       throw new Exception('Não foi possível atualizar a venda');
     }
 

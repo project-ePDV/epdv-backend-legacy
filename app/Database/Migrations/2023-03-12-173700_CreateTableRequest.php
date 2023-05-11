@@ -11,9 +11,8 @@ class CreateTableRequest extends Migration
         $this->forge->dropTable('request', true);
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'unsigned'       => true,
-                'auto_increment' => true,
+                'type' => 'CHAR',
+                'constraint' => 36,
             ],
             'date' => [
                 'type'       => 'DATE',
@@ -24,14 +23,14 @@ class CreateTableRequest extends Migration
                 'constraint'    => '10,2',
                 'null'          => false
             ],
-            'fk_costumer' => [
+            'fk_customer' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '11',
                 'null'       => true
             ]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('fk_costumer', 'costumer', 'cpf', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('fk_customer', 'customer', 'cpf', 'CASCADE', 'CASCADE');
         $this->forge->createTable('request');
     }
 

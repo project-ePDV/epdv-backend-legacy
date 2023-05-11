@@ -20,9 +20,7 @@ class CreateTableSale extends Migration
                 'null'       => false
             ],
             'fk_request' => [
-                'type'          => 'INT',
-                'unsigned'      => true,
-                'null'          => false
+                'type'          => 'CHAR',
             ],
             'fk_employee' => [
                 'type'       => 'VARCHAR',

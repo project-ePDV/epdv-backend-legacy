@@ -4,16 +4,15 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateTableCostumer extends Migration
+class CreateTableCustomer extends Migration
 {
     public function up()
     {
-        $this->forge->dropTable('costumer', true);
+        $this->forge->dropTable('customer', true);
         $this->forge->addField([
             'cpf' => [
                 'type'           => 'VARCHAR',
                 'constraint' => '11',
-                'auto_increment' => true,
             ],
             'name' => [
                 'type'       => 'VARCHAR',
@@ -43,11 +42,11 @@ class CreateTableCostumer extends Migration
         ]);
         $this->forge->addKey('cpf', true);
         $this->forge->addForeignKey('fk_address', 'address', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('costumer');
+        $this->forge->createTable('customer');
     }
 
     public function down()
     {
-        $this->forge->dropTable('costumer');
+        $this->forge->dropTable('customer');
     }
 }

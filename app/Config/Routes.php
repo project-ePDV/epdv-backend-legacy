@@ -38,6 +38,8 @@ $routes->get('/', 'Home::index');
 
 //Vendas route
 $routes->get('/api/(:any)/vendas', 'Request::getProductsFiltered/$1');
+$routes->post('/api/(:any)/admin/vendas', 'Admin\Request::registerRequest/$1');
+$routes->put('/api/(:any)/admin/vendas/(:any)', 'Admin\Request::updateRequest/$1/$2');
 
 // Product route
 $routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');

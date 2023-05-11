@@ -11,8 +11,9 @@ class CreateTableProductRequest extends Migration
         $this->forge->dropTable('ProductRequest', true);
         $this->forge->addField([
             'id' => [
-                'type' => 'CHAR',
-                'constraint' => 36,
+                'type'           => 'INT',
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
             'fk_product'     => [
                 'type'       => 'INT',
@@ -20,9 +21,8 @@ class CreateTableProductRequest extends Migration
                 'null'       => false
             ],
             'fk_request'     => [
-                'type'       => 'INT',
-                'unsigned'   => true,
-                'null'       => true
+                'type'       => 'CHAR',
+                'constraint' => 36,
             ]
         ]);
         $this->forge->addKey('id', true);

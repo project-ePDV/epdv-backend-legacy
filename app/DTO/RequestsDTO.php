@@ -28,7 +28,7 @@ class RequestsDTO extends requestsModel
     {
         return $this->database
             ->table('request')
-            ->select("")
+            ->select()
             ->get($size, ($page - 1))
             ->getResult();
     }
