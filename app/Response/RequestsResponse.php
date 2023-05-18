@@ -2,97 +2,65 @@
 
 namespace App\Response;
 
+use App\DTO\ProductsRequestDTO;
 use App\DTO\RequestsDTO;
 use Exception;
 
-class RequestsResponse
+class RequestsResponse extends BaseResponse
 {
-  private $timestamp;
-  private $status = 200;
+  private $database;
 
-  public function __construct()
+  public function __construct($database)
   {
-    $this->timestamp = time();
+    parent::__construct();
+    $this->database = $database;
   }
 
-  public function setStatus($status)
+  public function responsePageableRequests($params)
   {
-    $this->status = $status;
-  }
+    extract($params);
 
-  public function responsePageableRequests($page, $size, $database)
-  {
-    $requestDTO = new RequestsDTO($database);
-    if (!$requestDTO->pageableRequests($page, $size, $database)) {
+    $requestDTO = new RequestsDTO($this->database);
+    $records = $requestDTO->pageableRequests($page, $size);
+
+    if (!$requestDTO->pageableRequests($page, $size)) {
       throw new Exception('Não foi possível retornar as vendas');
     }
 
-    return (array(
-      'status' => $this->status,
-      'timestamp' => $this->timestamp,
-      'date' => date('Y-m-d H:i:s', $this->timestamp),
-      'page' => $page,
-      'size' => $size,
-      'records' => $requestDTO->pageableRequests($page, $size, $database)
-    ));
+    return $this->responsePageable($params, $records);
   }
 
-  public function responseProductById($id, $database)
+  public function responseRequestById($id)
   {
-    $product = new RequestsDTO($database);
+    $requestDTO = new RequestsDTO($this->database);
+    $records = $requestDTO->requestById($id);
 
-    if (!$product->productById($id)) {
+    if (!$requestDTO->requestById($id)) {
       throw new Exception('Venda não encontrada');
     }
 
-    return (array(
-      'status' => $this->status,
-      'timestamp' => $this->timestamp,
-      'date' => date('Y-m-d H:i:s', $this->timestamp),
-      'filter' => 'id',
-      'records' => $product->productById($id)
-    ));
+    return $this->responseById($id, $records);
   }
 
-  public function Requestsave($user, $data)
+  public function requestSave($data)
   {
-    $requestDTO = new RequestsDTO($user);
+    $requestDTO = new RequestsDTO($this->database);
 
     if (!$requestDTO->Requestsave($data)) {
       throw new Exception('Não foi possível salvar os dados da venda');
     }
 
-    return $this->responseProductGeneric('Venda cadastrado com sucesso');
+    return $this->responseGeneric('Venda cadastrado com sucesso');
   }
 
-  public function requestUpdate($user, $data)
+  public function requestUpdate($data)
   {
-    $requestDTO = new RequestsDTO($user);
+    $requestDTO = new RequestsDTO($this->database);
 
     if (!$requestDTO->requestUpdate($data)) {
       throw new Exception('Não foi possível atualizar a venda');
     }
 
-    return $this->responseProductGeneric('Venda não pode ser atualizado');
-  }
-
-  public function responseProductGeneric($message)
-  {
-    return (array(
-      'status' => $this->status,
-      'timestamp' => $this->timestamp,
-      'date' => date('Y-m-d H:i:s', $this->timestamp),
-      'message' => $message
-    ));
-  }
-
-  public function error($exception)
-  {
-    return (array(
-      'status' => $this->status,
-      'timestamp' => $this->timestamp,
-      'date' => date('Y-m-d H:i:s', $this->timestamp),
-      'message' => $exception->getMessage()
-    ));
+    return $this->responseGeneric('Venda não pode ser atualizado');
   }
 }

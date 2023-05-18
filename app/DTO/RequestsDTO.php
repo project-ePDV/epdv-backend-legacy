@@ -2,62 +2,43 @@
 
 namespace App\DTO;
 
-use App\Models\requestsModel;
-use App\Utils\UserDatabaseModel;
-
-class RequestsDTO extends requestsModel
+class RequestsDTO extends BaseDTO
 {
-    private $user;
-    private $database;
+
+    private $column = 'id, date, value';
 
     public function __construct($database)
     {
-        parent::__construct();
-        $this->user = new UserDatabaseModel($database);
-        $this->database = \Config\Database::connect($this->user->getUserConnection(), false);
+        parent::__construct($database, "request");
     }
 
     public function getAllrequests()
     {
-        return $this->database
-            ->query('SELECT * FROM request;')
-            ->getResult();
+        return $this->getAllEntity($this->column);
     }
 
-    public function pageablerequests($page, $size)
+    public function pageableRequests($page, $size)
     {
-        return $this->database
-            ->table('request')
-            ->select()
-            ->get($size, ($page - 1))
-            ->getResult();
+        $params = [
+            "page" => $page,
+            "size" => $size
+        ];
+        
+        return $this->pageableEntity($params, $this->column);
     }
 
     public function requestById($id)
     {
-        return $this->database
-            ->table('request')
-            ->select()
-            ->where('id', $id)
-            ->get()
-            ->getResult();
+        return $this->getEntityById($id, $this->column);
     }
 
     public function requestSave($data)
     {
-        $save = $this->database
-        ->table('request')
-        ->insert($data);
-
-        return $save;
+        return $this->saveEntity($data);
     }
 
     public function requestUpdate($data)
     {
-        $save = $this->database
-        ->table('request')
-        ->replace($data);
-
-        return $save;
+        return $this->updateEntity($data);
     }
 }

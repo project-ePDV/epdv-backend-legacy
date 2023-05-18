@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\RequestsModel;
+use App\Response\ProductsRequestResponse;
 use App\Response\RequestsResponse;
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
@@ -16,20 +17,57 @@ class Request extends ResourceController
         // algo sera feito aqui
     }
 
-    public function getProductsFiltered($database)
+    public function getAllProductsRequest($user)
     {
-        $page = $this->request->getGet('page');
-        $size = $this->request->getGet('size');
-
-        $response = new RequestsResponse();
+        $response = new ProductsRequestResponse($user);
 
         try {
-            $data = $response->responsePageableRequests($page, $size, $database);
-
+            $data = $response->getAllProductsRequest();
             return $this->respond($data, 200, 'success');
         } catch (Exception $exception) {
             $response->setStatus(500);
-            return $this->respond($response->error($exception), 500, $this->errorMessage);
+            return $this->respond($response->responseError($exception), 500, $this->errorMessage);
+        }
+    }
+
+    public function getProductsRequestById($user, $id)
+    {
+        $response = new ProductsRequestResponse($user);
+
+        try {
+            $data = $response->getProductsRequestById($id);
+            return $this->respond($data, 200, 'success');
+        } catch (Exception $exception) {
+            $response->setStatus(500);
+            return $this->respond($response->responseError($exception), 500, $this->errorMessage);
+        }
+    }
+
+    public function getRequestPageable($user)
+    {
+        $params = $this->request->getGet();
+
+        $response = new RequestsResponse($user);
+
+        try {
+            $data = $response->responsePageableRequests($params);
+            return $this->respond($data, 200, 'success');
+        } catch (Exception $exception) {
+            $response->setStatus(500);
+            return $this->respond($response->responseError($exception), 500, $this->errorMessage);
+        }
+    }
+
+    public function getRequestById($user, $id)
+    {
+        $response = new RequestsResponse($user);
+
+        try {
+            $data = $response->responseRequestById($id);
+            return $this->respond($data, 200, 'success');
+        } catch (Exception $exception) {
+            $response->setStatus(500);
+            return $this->respond($response->responseError($exception), 500, $this->errorMessage);
         }
     }
 }

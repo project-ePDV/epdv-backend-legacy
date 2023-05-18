@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 
+use App\Response\ProductsRequestResponse;
 use App\Response\ProductsResponse;
 use App\Response\RequestsResponse;
 use App\Utils\RandomUUID;
@@ -23,11 +24,30 @@ class Request extends ResourceController
             'fk_customer'     => null
         ];
 
-        $response = new RequestsResponse();
+        $response = new RequestsResponse($user);
 
-        if ($response->Requestsave($user, $data)) {
-            $data = $response->responseProductGeneric('Venda registrada com sucesso');
+        if ($response->requestSave($data)) {
+            $data = $response->responseGeneric('Venda registrada com sucesso');
         }
+
+        return $this->respond($data, 200, 'success');
+    }
+
+    public function registerProductsRequest($user)
+    {
+        $response = new ProductsRequestResponse($user);
+
+
+        foreach ($this->request->getVar() as $value) {
+            $data = [
+                'fk_product' => $value->fk_product,
+                'fk_request' => $value->fk_request
+            ];
+
+            $response->productRequestSave($data);
+        }
+        $data = $response->responseGeneric('Venda registrada com sucesso');
+        
         return $this->respond($data, 200, 'success');
     }
 
@@ -40,10 +60,10 @@ class Request extends ResourceController
             'fk_customer'     => null
         ];
 
-        $response = new RequestsResponse();
+        $response = new RequestsResponse($user);
 
-        if ($response->requestUpdate($user, $data)) {
-            $data = $response->responseProductGeneric('Produto atualizado com sucesso');
+        if ($response->requestUpdate($data)) {
+            $data = $response->responseGeneric('Produto atualizado com sucesso');
         }
         return $this->respond($data, 200, 'success');
     }

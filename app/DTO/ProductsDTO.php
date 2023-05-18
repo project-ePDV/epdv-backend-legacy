@@ -2,82 +2,57 @@
 
 namespace App\DTO;
 
-use App\Models\ProductsModel;
-use App\Utils\UserDatabaseModel;
-
-class ProductsDTO extends ProductsModel
+class ProductsDTO extends BaseDTO
 {
-    private $user;
-    private $database;
-
     public function __construct($database)
     {
-        parent::__construct();
-        $this->user = new UserDatabaseModel($database);
-        $this->database = \Config\Database::connect($this->user->getUserConnection(), false);
+        parent::__construct($database, "product");
     }
 
     public function getAllProducts()
     {
-        return $this->database
-            ->query('SELECT id, name, amount FROM product;')
-            ->getResult();
+        return $this->getAllEntity();
     }
 
     public function pageableProducts($page, $size)
     {
-        return $this->database
-            ->table('product')
-            ->select('id, name, amount')
-            ->get($size, ($page - 1))
-            ->getResult();
+        $params = [
+            "page" => $page,
+            "size" => $size
+        ];
+
+        return $this->pageableEntity($params);
     }
 
     public function filteredProducts($filter, $value, $page, $size)
     {
-        return $this->database
-            ->table('product')
-            ->select('id, name, amount')
-            ->where($filter, $value)
-            ->get($size, ($page - 1))
-            ->getResult();
+        $params = [
+            "page" => $page,
+            "size" => $size,
+            "filter" => $filter,
+            "value" => $value,
+        ];
+
+        return $this->filterEntity($params);
     }
 
     public function productById($id)
     {
-        return $this->database
-            ->table('product')
-            ->select('id, name, amount')
-            ->where('id', $id)
-            ->get()
-            ->getResult();
+        return $this->getEntityById($id);
     }
 
     public function productSave($data)
     {
-        $save = $this->database
-            ->table('product')
-            ->insert($data);
-
-        return $save;
+        return $this->saveEntity($data);
     }
 
     public function productUpdate($data)
     {
-        $save = $this->database
-            ->table('product')
-            ->replace($data);
-
-        return $save;
+        return $this->updateEntity($data);
     }
 
     public function productDelete($id)
     {
-        $delete = $this->database
-            ->table('product')
-            ->where('id', $id)
-            ->delete();
-
-        return $delete > 0;
+        return $this->deleteEntity($id);
     }
 }
