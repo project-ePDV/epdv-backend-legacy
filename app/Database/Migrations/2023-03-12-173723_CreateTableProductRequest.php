@@ -8,6 +8,7 @@ class CreateTableProductRequest extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('ProductRequest', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -20,9 +21,8 @@ class CreateTableProductRequest extends Migration
                 'null'       => false
             ],
             'fk_request'     => [
-                'type'       => 'INT',
-                'unsigned'   => true,
-                'null'       => false
+                'type'       => 'CHAR',
+                'constraint' => 36,
             ]
         ]);
         $this->forge->addKey('id', true);

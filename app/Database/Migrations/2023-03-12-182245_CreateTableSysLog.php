@@ -8,6 +8,7 @@ class CreateTableSysLog extends Migration
 {
     public function up()
     {
+        $this->forge->dropTable('sysLog', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -23,7 +24,7 @@ class CreateTableSysLog extends Migration
                 'type'       => 'DATE',
                 'null'       => false
             ],
-            'fk_costumer' => [
+            'fk_customer' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => '11',
                 'null'          => false
@@ -35,7 +36,7 @@ class CreateTableSysLog extends Migration
             ]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('fk_costumer', 'costumer', 'cpf', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('fk_customer', 'customer', 'cpf', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('fk_employee', 'employee', 'cpf', 'CASCADE', 'CASCADE');
         $this->forge->createTable('sysLog');
     }

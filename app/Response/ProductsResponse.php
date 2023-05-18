@@ -5,125 +5,85 @@ namespace App\Response;
 use App\DTO\ProductsDTO;
 use Exception;
 
-class ProductsResponse
+class ProductsResponse extends BaseResponse
 {
-    private $timestamp;
-    private $status = 200;
+    private $database;
 
-    public function __construct()
+    public function __construct($database)
     {
-        $this->timestamp = time();
+        parent::__construct();
+        $this->database = $database;
     }
 
-    public function setStatus($status)
+    public function responsePageableProducts($params)
     {
-        $this->status = $status;
-    }
+        extract($params);
 
-    public function responsePageableProducts($page, $size, $database)
-    {
-        $productDTO = new ProductsDTO($database);
-        if (!$productDTO->pageableProducts($page, $size, $database)) {
+        $productDTO = new ProductsDTO($this->database);
+        $records = $productDTO->pageableProducts($page, $size);
+
+        if (!$productDTO->pageableProducts($page, $size)) {
             throw new Exception('Não foi possível retornar os produtos');
         }
 
-        return (array(
-            'status' => $this->status,
-            'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'page' => $page,
-            'size' => $size,
-            'records' => $productDTO->pageableProducts($page, $size, $database)
-        ));
+        return $this->responsePageable($params, $records);
     }
 
-    public function responseFilteredProducts($filter, $value, $page, $size, $database)
+    public function responseFilteredProducts($params)
     {
-        $productsList = new ProductsDTO($database);
+        extract($params);
 
-        if (!$productsList->filteredProducts($filter, $value, $page, $size)) {
+        $productDTO = new ProductsDTO($this->database);
+        $records = $productDTO->filteredProducts($filter, $value, $page, $size);
+
+        if (!$productDTO->filteredProducts($filter, $value, $page, $size)) {
             throw new Exception('Não foi possível retornar os produtos filtrados');
         }
 
-        return (array(
-            'status' => $this->status,
-            'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'page' => $page,
-            'size' => $size,
-            'filter' => $filter,
-            'records' => $productsList->filteredProducts($filter, $value, $page, $size)
-        ));
+        return $this->responseFiltered($params, $records);
     }
 
-    public function responseProductById($id, $database)
+    public function responseProductById($id)
     {
-        $product = new ProductsDTO($database);
-
-        if (!$product->productById($id)) {
+        $productDTO = new ProductsDTO($this->database);
+        $records = !$productDTO->productById($id);
+        
+        if (!$productDTO->productById($id)) {
             throw new Exception('Produto não encontrado');
         }
         
-
-        return (array(
-            'status' => $this->status,
-            'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'filter' => 'id',
-            'records' => $product->productById($id)
-        ));
+        return $this->responseById($id, $records);
     }
 
-    public function productDeleteById($database, $id)
+    public function productSave($data)
     {
-        $productDTO = new ProductsDTO($database);
-
-        if (!$productDTO->productDelete($id)) {
-            throw new Exception('Não foi possível deletar o produto');
-        }
-
-        return $this->responseProductGeneric('Produto deletado com sucesso');
-    }
-
-    public function productSave($user, $data)
-    {
-        $productDTO = new ProductsDTO($user);
-
+        $productDTO = new ProductsDTO($this->database);
         if (!$productDTO->productSave($data)) {
             throw new Exception('Não foi possível salvar os dados do produto');
         }
 
-        return $this->responseProductGeneric('Produto cadastrado com sucesso');
+        return $this->responseGeneric('Produto cadastrado com sucesso');
     }
 
-    public function productUpdate($user, $data)
+    public function productUpdate($data)
     {
-        $productDTO = new ProductsDTO($user);
+        $productDTO = new ProductsDTO($this->database);
 
         if (!$productDTO->productUpdate($data)) {
             throw new Exception('Não foi possível atualizar o produto');
         }
 
-        return $this->responseProductGeneric('Produto não pode ser atualizado');
+        return $this->responseGeneric('Produto Atualizado com sucesso');
     }
 
-    public function responseProductGeneric($message)
+    public function productDeleteById($id)
     {
-        return (array(
-            'status' => $this->status,
-            'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'message' => $message
-        ));
-    }
+        $productDTO = new ProductsDTO($this->database);
 
-    public function error($exception)
-    {
-        return (array(
-            'status' => $this->status,
-            'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'message' => $exception->getMessage()
-        ));
+        if (!$productDTO->productDelete($id)) {
+            throw new Exception('Não foi possível deletar o produto');
+        }
+
+        return $this->responseGeneric('Produto deletado com sucesso');
     }
 }

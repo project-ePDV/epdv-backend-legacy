@@ -13,7 +13,7 @@ class Product extends ResourceController
         // algo será feito aqui
     }
 
-    public function registerProduct($user)
+    public function registerProduct($database)
     {
         $data = [
             'name'      => $this->request->getVar('name'),
@@ -22,15 +22,12 @@ class Product extends ResourceController
             'price'     => $this->request->getVar('price')
         ];
 
-        $response = new ProductsResponse();
+        $response = new ProductsResponse($database);
 
-        if ($response->productSave($user, $data)) {
-            $data = $response->responseProductGeneric('Produto registrado com sucesso');
-        }
-        return $this->respond($data, 200, 'success');
+        return $this->respond($response->productSave($data), 200, 'success');
     }
 
-    public function updateProduct($user, $id)
+    public function updateProduct($database, $id)
     {
         $data = [
             'id'        => $id,
@@ -40,21 +37,17 @@ class Product extends ResourceController
             'price'     => $this->request->getVar('price')
         ];
 
-        $response = new ProductsResponse();
+        $response = new ProductsResponse($database);
 
-        if ($response->productUpdate($user, $data)) {
-            $data = $response->responseProductGeneric('Produto atualizado com sucesso');
-        }
-        return $this->respond($data, 200, 'success');
+        return $this->respond($response->productUpdate($data), 200, 'success');
     }
 
-    public function deleteProduct($user, $id)
+    public function deleteProduct($database, $id)
     {
-        $response = new ProductsResponse();
+        $response = new ProductsResponse($database);
 
-        if ($response->productDeleteById($user, $id)) {
-            $data = $response->responseProductGeneric('Produto deletado com sucesso');
-        }
+        $data = $response->productDeleteById($id);
+
         return $this->respond($data, 200, 'success');
     }
 }

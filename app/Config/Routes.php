@@ -34,12 +34,24 @@ $routes->setAutoRoute(true);
 
 // Home route
 $routes->get('/', 'Home::index');
+//Migration Route
+
+//Vendas route
+$routes->get('/api/(:any)/vendas', 'Request::getRequestPageable/$1');
+$routes->get('/api/(:any)/vendas/(:any)', 'Request::getRequestById/$1/$2');
+$routes->post('/api/(:any)/admin/vendas', 'Admin\Request::registerRequest/$1');
+$routes->put('/api/(:any)/admin/vendas/(:any)', 'Admin\Request::updateRequest/$1/$2');
+
+//Adicionar produto em uma venda
+$routes->get('/api/(:any)/venda/produto', 'Request::getAllProductsRequest/$1');
+$routes->get('/api/(:any)/venda/produto/(:any)', 'Request::getProductsRequestById/$1/$2');
+$routes->post('/api/(:any)/admin/vendas/produto', 'Admin\Request::registerProductsRequest/$1');
 
 // Product route
 $routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');
 $routes->get('/api/(:any)/produtos/(:num)', 'Product::getProductById/$1/$2');
 $routes->post('/api/(:any)/admin/produtos', 'Admin\Product::registerProduct/$1');
-$routes->delete('/api/(:any)/admin/produtos/deletar/(:any)', 'Admin\Product::deleteProduct/$1/$2');
+$routes->delete('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::deleteProduct/$1/$2');
 $routes->put('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::updateProduct/$1/$2');
 
 // User route
