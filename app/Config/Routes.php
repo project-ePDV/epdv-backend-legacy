@@ -43,9 +43,9 @@ $routes->post('/api/(:any)/admin/vendas', 'Admin\Request::registerRequest/$1');
 $routes->put('/api/(:any)/admin/vendas/(:any)', 'Admin\Request::updateRequest/$1/$2');
 
 //Adicionar produto em uma venda
-$routes->get('/api/(:any)/venda/produto', 'Request::getAllProductsRequest/$1');
-$routes->get('/api/(:any)/venda/produto/(:any)', 'Request::getProductsRequestById/$1/$2');
-$routes->post('/api/(:any)/admin/vendas/produto', 'Admin\Request::registerProductsRequest/$1');
+$routes->get('/api/(:any)/vendaProduto', 'Request::getAllProductsRequest/$1');
+$routes->get('/api/(:any)/vendaProduto/(:any)', 'Request::getProductsRequestById/$1/$2');
+$routes->post('/api/(:any)/admin/vendaProduto', 'Admin\Request::registerProductsRequest/$1');
 
 // Product route
 $routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');

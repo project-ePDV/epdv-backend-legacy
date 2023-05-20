@@ -13,7 +13,8 @@
   <title>Rotas</title>
 </head>
 
-<body class="bg-black d-flex justify-content-start flex-column" style="width: 100vw;">
+<body class="bg-black d-flex justify-content-start flex-column mb-4 w-100" style="width: 100vw;">
+  <!-- Produtos -->
   <div class="card container text-center mt-5 text-bg-dark" style="width: 90%;">
     <h3 class="card-title p-1">Produtos</h3>
     <table class="table table-dark">
@@ -35,8 +36,7 @@
           <td>/produtos</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/produtos" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Todos produtos</a>
+            <a href="/api/db_epdv/produtos" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Todos produtos</a>
           </td>
         </tr>
         <tr>
@@ -46,8 +46,7 @@
           <td>/produtos</td>
           <td>/$id</td>
           <td>
-            <a href="/api/db_epdv/produtos/4" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produto por Id</a>
+            <a href="/api/db_epdv/produtos/4" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produto por Id</a>
           </td>
         </tr>
         <tr>
@@ -57,8 +56,7 @@
           <td>/produtos</td>
           <td>?page=1&size=6</td>
           <td>
-            <a href="/api/db_epdv/produtos?page=1&size=6" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produtos paginados</a>
+            <a href="/api/db_epdv/produtos?page=1&size=6" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produtos paginados</a>
           </td>
         </tr>
         <tr>
@@ -68,8 +66,7 @@
           <td>/produtos</td>
           <td>?page=1&size=6&filter=amount&value=20</td>
           <td>
-            <a href="/api/db_epdv/produtos?page=1&size=6&filter=amount&value=20" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produtos Filtrados</a>
+            <a href="/api/db_epdv/produtos?page=1&size=6&filter=amount&value=20" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produtos Filtrados</a>
           </td>
         </tr>
         <tr>
@@ -79,8 +76,7 @@
           <td>/produtos</td>
           <td>name / amount / brand / price</td>
           <td>
-            <a href=""
-            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar Produto</a>
+            <a href="" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar Produto</a>
           </td>
         </tr>
         <tr>
@@ -90,8 +86,7 @@
           <td>/produtos</td>
           <td>name / amount / brand / price</td>
           <td>
-            <a href=""
-            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Atualizar produto</a>
+            <a href="" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Atualizar produto</a>
           </td>
         </tr>
         <tr>
@@ -101,14 +96,14 @@
           <td>/produtos/deletar</td>
           <td>/$id</td>
           <td>
-            <a href=""
-            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Deletar produto</a>
+            <a href="" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Deletar produto</a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Vendas -->
   <div class="card container text-center mt-5 text-bg-dark" style="width: 90%;">
     <h3 class="card-title p-1">Vendas</h3>
     <table class="table table-dark">
@@ -130,8 +125,7 @@
           <td>/vendas</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/produtos" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Todos as vendas</a>
+            <a href="/api/db_epdv/produtos" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Todos as vendas</a>
           </td>
         </tr>
         <tr>
@@ -141,8 +135,7 @@
           <td>/vendas</td>
           <td>/$id</td>
           <td>
-            <a href="/api/db_epdv/produtos/4" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produto por Id</a>
+            <a href="/api/db_epdv/produtos/4" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Produto por Id</a>
           </td>
         </tr>
         <tr>
@@ -152,8 +145,7 @@
           <td>/vendas</td>
           <td>?page=1&size=6</td>
           <td>
-            <a href="/api/db_epdv/produtos?page=1&size=6" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Vendas paginados</a>
+            <a href="/api/db_epdv/produtos?page=1&size=6" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Vendas paginados</a>
           </td>
         </tr>
         <tr>
@@ -163,8 +155,7 @@
           <td>/vendas</td>
           <td>products / total / quantity </td>
           <td>
-            <a href=""
-            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar venda</a>
+            <a href="" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar venda</a>
           </td>
         </tr>
         <tr>
@@ -174,14 +165,63 @@
           <td>/vendas</td>
           <td>products / total / quantity </td>
           <td>
-            <a href=""
-            class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Atualizar venda</a>
+            <a href="" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Atualizar venda</a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Produtos da venda -->
+  <div class="card container text-center mt-5 text-bg-dark" style="width: 90%;">
+    <h3 class="card-title p-1">Produtos da venda</h3>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">HTTP Method</th>
+          <th scope="col">1º Segmento</th>
+          <th scope="col">2º Segmento</th>
+          <th scope="col">recurso</th>
+          <th scope="col">Parâmetros</th>
+          <th scope="col">Função</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">GET</th>
+          <td>/api</td>
+          <td>/db_epdv</td>
+          <td>/vendaProduto</td>
+          <td></td>
+          <td>
+            <a href="/api/db_epdv/produtos" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Todos os produtos vendidos</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">GET</th>
+          <td>/api</td>
+          <td>/db_epdv</td>
+          <td>/vendaProduto</td>
+          <td>/$id</td>
+          <td>
+            <a href="/api/db_epdv/produtos/4" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Todos os produtos de uma venda</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Post</th>
+          <td>/api</td>
+          <td>/db_epdv</td>
+          <td>/vendaProduto</td>
+          <td>fk_product / fk_request</td>
+          <td>
+            <a href="/api/db_epdv/produtos?page=1&size=6" target="_blank" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar produto em uma venda</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Usuário -->
   <div class="card container text-center mt-5 text-bg-dark" style="width: 90%;">
     <h3 class="card-title p-1">Usuarios</h3>
     <table class="table table-dark">
@@ -203,8 +243,7 @@
           <td>/usuario</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/usuario" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Retorna o usuario logado</a>
+            <a href="/api/db_epdv/usuario" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Retorna o usuario logado</a>
           </td>
         </tr>
         <tr class="table-bordered border-danger">
@@ -214,8 +253,7 @@
           <td>/usuario/profile</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/usuario/profile" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Retorna o detalhes do usuario logado</a>
+            <a href="/api/db_epdv/usuario/profile" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Retorna o detalhes do usuario logado</a>
           </td>
         </tr>
         <tr class="table-bordered border-danger">
@@ -225,8 +263,7 @@
           <td>/usuario</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/usuario" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar novo usuario</a>
+            <a href="/api/db_epdv/usuario" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar novo usuario</a>
           </td>
         </tr>
         <tr class="table-bordered border-danger">
@@ -236,8 +273,7 @@
           <td>/usuario</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/usuario" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Atualizar dados de um usuario</a>
+            <a href="/api/db_epdv/usuario" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Atualizar dados de um usuario</a>
           </td>
         </tr>
         <tr class="table-bordered border-danger">
@@ -247,14 +283,14 @@
           <td>/usuario</td>
           <td></td>
           <td>
-            <a href="/api/db_epdv/usuario" target="_blank"
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Deletar um usuario</a>
+            <a href="/api/db_epdv/usuario" target="_blank" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Deletar um usuario</a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Sign -->
   <div class="card container text-center mt-5 text-bg-dark" style="width: 90%;">
     <h3 class="card-title p-1">Sign</h3>
     <table class="table table-dark">
@@ -276,13 +312,13 @@
           <td>/register</td>
           <td>name / email / password / confirmPassword</td>
           <td>
-            <a href=""
-            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar cliente</a>
+            <a href="" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrar cliente</a>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 

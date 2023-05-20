@@ -18,13 +18,16 @@ class Product extends ResourceController
     public function getProductsFiltered($database)
     {
         $params = $this->request->getGet();
-        $filter = $this->request->getGet('filter');
-        $value = $this->request->getGet('value');
+        extract($params);
 
         $response = new ProductsResponse($database);
 
         try {
-            $data = $response->responsePageableProducts($params);
+            
+            $data = $response->responseFindAllProducts($params);
+            if (isset($page) && isset($size)) {
+                $data = $response->responsePageableProducts($params);
+            }
             if (isset($filter) && isset($value)) {
                 $data = $response->responseFilteredProducts($params);
             }

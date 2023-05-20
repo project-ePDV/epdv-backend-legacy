@@ -30,25 +30,35 @@ class Request extends ResourceController
             $data = $response->responseGeneric('Venda registrada com sucesso');
         }
 
-        return $this->respond($data, 200, 'success');
+        return $this->respond($data, 201, 'success');
     }
 
     public function registerProductsRequest($user)
     {
+        $receiveData = $this->request->getVar();
         $response = new ProductsRequestResponse($user);
 
-
-        foreach ($this->request->getVar() as $value) {
+        if(count($receiveData) > 1) {
+            foreach ($receiveData as $value) {
+                $data = [
+                    'fk_product' => $value->fk_product,
+                    'fk_request' => $value->fk_request
+                ];
+    
+                $response->productRequestSave($data);
+            }
+            $data = $response->responseGeneric('Registrado com sucesso');
+        } else {
             $data = [
-                'fk_product' => $value->fk_product,
-                'fk_request' => $value->fk_request
+                'fk_product' => $receiveData[0]->fk_product,
+                'fk_request' => $receiveData[0]->fk_request
             ];
-
-            $response->productRequestSave($data);
+            if ($response->productRequestSave($data)) {
+                $data = $response->responseGeneric('Registrado com sucesso');
+            }
         }
-        $data = $response->responseGeneric('Venda registrada com sucesso');
         
-        return $this->respond($data, 200, 'success');
+        return $this->respond($data, 201, 'success');
     }
 
     public function updateRequest($user, $id)
@@ -65,11 +75,6 @@ class Request extends ResourceController
         if ($response->requestUpdate($data)) {
             $data = $response->responseGeneric('Produto atualizado com sucesso');
         }
-        return $this->respond($data, 200, 'success');
-    }
-
-    public function deleteRequest($user, $id)
-    {
-        return $this->respond("", 200, 'success');
+        return $this->respond($data, 204, 'success');
     }
 }

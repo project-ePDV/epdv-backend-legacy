@@ -30,7 +30,7 @@ class BaseResponse
         ));
     }
 
-    public function responsePageable($params, $response)
+    public function responsePageable($params = [], $response)
     {
         extract($params);
 
@@ -62,7 +62,7 @@ class BaseResponse
             'status' => $this->status,
             'timestamp' => $this->timestamp,
             'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'params' => $id,
+            'id' => $id,
             'records' => $response
         ));
     }
