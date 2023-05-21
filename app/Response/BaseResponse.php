@@ -66,6 +66,17 @@ class BaseResponse
             'records' => $response
         ));
     }
+    public function responseSign($params, $token)
+    {
+        return (array(
+            'status' => $this->status,
+            'timestamp' => $this->timestamp,
+            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'company' => $params->companyName,
+            'token' => $token
+        ));
+    }
+
     public function responseGeneric($message)
     {
         return (array(

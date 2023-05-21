@@ -2,10 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+use App\Response\BaseResponse;
 use App\Utils\DatabaseUserQueries;
 use App\Utils\UserDatabaseModel;
 use App\Response\SignResponse;
+use App\Utils\JWT;
 use CodeIgniter\RESTful\ResourceController;
+use DateTime;
 use Exception;
 
 class Sign extends ResourceController
@@ -17,7 +21,7 @@ class Sign extends ResourceController
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $confirmPassword = $this->request->getVar('confirmPassword');
-        
+
         $firstEmployee = [
             'cpf'       => '00000000000',
             'name'      => $name,
@@ -63,7 +67,7 @@ class Sign extends ResourceController
             $err = $response->error('Não foi possível criar novo usuário');
             return $this->respond($err, 500, 'Internal Server Error');
         }
-        
+
         try {
             foreach ($queries->getSQL() as $query) {
                 $db->query($query); // Executa o SQL
@@ -78,8 +82,65 @@ class Sign extends ResourceController
         return $this->respond($success, 201);
     }
 
-    public function login()
+    public function authenticate()
     {
+        $params = (array) $this->request->getVar();
 
+        $userModel = new UserModel();
+        $response = new BaseResponse();
+        $session = \Config\Services::session();
+
+        if ($userModel->authenticate($params)) {
+            $company = $userModel->getCompany($params['email']);
+            $token = JWT::getToken($userModel->getUser($params['email']));
+
+            $userSession['userSession'] = isset($_SESSION['userSession']) ? $_SESSION['userSession'] : [];
+            $tokenSession = [
+                'token'  => $token,
+                'timestamp'     => date('Y-m-d H:i:s', time())
+            ];
+
+            array_unshift($userSession['userSession'], $tokenSession);
+            $session->set($userSession);
+
+            return $this->respond($response->responseSign($company, $token), 200);
+        }
+
+        $response->setStatus(403);
+        $data = $response->responseGeneric("Não autorizado");
+
+        return $this->respond($data, 403);
     }
+
+    public function valideToken($token)
+    {
+        $response = new BaseResponse();
+        $session = \Config\Services::session();
+
+        foreach ($session->get('userSession') as $value) {
+            if ($value['token'] == $token) {
+                $dateOld = new DateTime($value['timestamp']);
+                $timeDiff = $dateOld->diff(new DateTime());
+
+                if ($timeDiff->days > 1) {
+                    $response->setStatus(401);
+                    return $this->respond($response->responseGeneric('Não autorizado'), 401);
+                }
+                
+                return $this->respond($response->responseGeneric($token), 200);
+            }
+        }
+
+        $response->setStatus(401);
+        return $this->respond($response->responseGeneric('Não autorizado'), 401);
+    }
+
+    public function expireAllToken()
+    {
+        $session = \Config\Services::session();
+        $session->destroy();
+        return $this->respond(null, 204);
+    }
+
+    
 }

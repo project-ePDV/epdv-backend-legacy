@@ -68,6 +68,11 @@ $routes->put('/api/(:any)/usuario', 'Employee::update/$1');
 
 // Sign route
 $routes->post('/sign/register', 'Sign::register');
+$routes->post('/sign/login', 'Sign::authenticate');
+
+//Auth route
+$routes->get('/auth/expire', 'Sign::expireAllToken');
+$routes->get('/auth/token/(:any)', 'Sign::valideToken/$1');
 
 /*
  * --------------------------------------------------------------------
