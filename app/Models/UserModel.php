@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Exception;
 
 class UserModel extends Model
 {
@@ -45,8 +46,11 @@ class UserModel extends Model
     {
         extract($params);
 
-        $pwdHash = $this->getCredentials($email)->password;
-
-        return password_verify($password, $pwdHash);
+        try {
+            $pwdHash = $this->getCredentials($email)->password;
+            return password_verify($password, $pwdHash);
+        } catch(Exception $e) {
+            return false;
+        }  
     }
 }

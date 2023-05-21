@@ -105,7 +105,6 @@ class Sign extends ResourceController
 
             return $this->respond($response->responseSign($company, $token), 200);
         }
-
         $response->setStatus(403);
         $data = $response->responseGeneric("Não autorizado");
 
