@@ -1,5 +1,5 @@
 <?= $this->extend('home') ?>
-<?= $this->section('table-produtos') ?>
+<?= $this->section('conteudo') ?>
 
 <h3 class="card-title p-1">Produtos</h3>
 <table class="table table-dark">

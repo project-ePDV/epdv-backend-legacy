@@ -37,6 +37,6 @@ class ProductsRequestResponse extends BaseResponse
     $requestDTO = new ProductRequestDTO($this->database);
     $records = $requestDTO->productRequestById($id);
 
-    return $this->responseAll($records);
+    return $this->responseById($id, $records);
   }
 }

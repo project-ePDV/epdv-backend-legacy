@@ -24,7 +24,7 @@ class Product extends ResourceController
 
         $response = new ProductsResponse($database);
 
-        return $this->respond($response->productSave($data), 200, 'success');
+        return $this->respond($response->productSave($data), 201, 'success');
     }
 
     public function updateProduct($database, $id)
@@ -39,7 +39,7 @@ class Product extends ResourceController
 
         $response = new ProductsResponse($database);
 
-        return $this->respond($response->productUpdate($data), 200, 'success');
+        return $this->respond($response->productUpdate($data), 204, 'success');
     }
 
     public function deleteProduct($database, $id)
@@ -48,6 +48,6 @@ class Product extends ResourceController
 
         $data = $response->productDeleteById($id);
 
-        return $this->respond($data, 200, 'success');
+        return $this->respond($data, 204, 'success');
     }
 }

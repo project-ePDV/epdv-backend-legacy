@@ -15,6 +15,17 @@ class ProductsResponse extends BaseResponse
         $this->database = $database;
     }
 
+    public function responseFindAllProducts()
+    {
+        $productDTO = new ProductsDTO($this->database);
+        $records = $productDTO->getAllProducts();
+
+        if (!$productDTO->getAllProducts()) {
+            throw new Exception('Não foi possível retornar os produtos');
+        }
+
+        return $this->responseAll($records);
+    }
     public function responsePageableProducts($params)
     {
         extract($params);
@@ -46,7 +57,7 @@ class ProductsResponse extends BaseResponse
     public function responseProductById($id)
     {
         $productDTO = new ProductsDTO($this->database);
-        $records = !$productDTO->productById($id);
+        $records = $productDTO->productById($id);
         
         if (!$productDTO->productById($id)) {
             throw new Exception('Produto não encontrado');
