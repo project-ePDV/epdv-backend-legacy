@@ -8,6 +8,7 @@ use App\Utils\DatabaseUserQueries;
 use App\Utils\UserDatabaseModel;
 use App\Response\SignResponse;
 use App\Utils\JWT;
+use App\Utils\RandomUUID;
 use CodeIgniter\RESTful\ResourceController;
 use DateTime;
 use Exception;
@@ -20,6 +21,7 @@ class Sign extends ResourceController
         $name = $this->request->getVar('name');
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
+        $companyName = $this->request->getVar('companyName');
         $confirmPassword = $this->request->getVar('confirmPassword');
 
         $firstEmployee = [
@@ -59,7 +61,8 @@ class Sign extends ResourceController
         }
 
         try {
-            $newUserDB = new UserDatabaseModel($name);
+            $dbName = uniqid($companyName);
+            $newUserDB = new UserDatabaseModel($dbName);
             $queries = new DatabaseUserQueries();
             $db = $newUserDB->createUserDB();
         } catch (Exception $error) {
