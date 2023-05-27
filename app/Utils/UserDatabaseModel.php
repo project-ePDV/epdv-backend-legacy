@@ -26,7 +26,7 @@ class UserDatabaseModel
     $db = [
       'hostname' => $this->host,
       'username' => 'root',
-      'password' => $this->password,
+      'password' => '',
       'database' => $this->name,
       'DBDriver' => 'MySQLi',
       'pConnect' => false,

@@ -25,18 +25,18 @@ class Sign extends ResourceController
         $confirmPassword = $this->request->getVar('confirmPassword');
 
         $firstEmployee = [
-            'cpf'       => '00000000000',
-            'name'      => $name,
-            'rg'        => '000000000',
-            'email'     => $email,
+            'cpf' => '00000000000',
+            'name' => $name,
+            'rg' => '000000000',
+            'email' => $email,
             'telephone' => '000000000',
-            'role'      => 'admin'
+            'role' => 'admin'
         ];
 
         $user = [
-            'name'      => $name,
-            'email'     => $email,
-            'password'  => password_hash($password, PASSWORD_BCRYPT)
+            'name' => $name,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_BCRYPT)
         ];
 
         $response = new SignResponse();
@@ -99,8 +99,8 @@ class Sign extends ResourceController
 
             $userSession['userSession'] = isset($_SESSION['userSession']) ? $_SESSION['userSession'] : [];
             $tokenSession = [
-                'token'  => $token,
-                'timestamp'     => date('Y-m-d H:i:s', time())
+                'token' => $token,
+                'timestamp' => date('Y-m-d H:i:s', time())
             ];
 
             array_unshift($userSession['userSession'], $tokenSession);
@@ -117,24 +117,15 @@ class Sign extends ResourceController
     public function valideToken($token)
     {
         $response = new BaseResponse();
-        $session = \Config\Services::session();
+        $time = JWT::decode($token, getenv('secret_key'))['timestamp'];
+        $tokenTimeValid = !(($time + (1 * 24 * 60 * 60)) < time());
 
-        foreach ($session->get('userSession') as $value) {
-            if ($value['token'] == $token) {
-                $dateOld = new DateTime($value['timestamp']);
-                $timeDiff = $dateOld->diff(new DateTime());
-
-                if ($timeDiff->days > 1) {
-                    $response->setStatus(401);
-                    return $this->respond($response->responseGeneric('Não autorizado'), 401);
-                }
-                
-                return $this->respond($response->responseGeneric($token), 200);
-            }
+        if (JWT::valideToken($token, getenv('secret_key')) && $tokenTimeValid) {
+            $data = $response->responseGeneric("Autorizado");
+            return $this->respond($data, 200);
         }
-
-        $response->setStatus(401);
-        return $this->respond($response->responseGeneric('Não autorizado'), 401);
+        $data = $response->responseGeneric("Não autorizado");
+        return $this->respond($data, 403);
     }
 
     public function expireAllToken()
@@ -144,5 +135,5 @@ class Sign extends ResourceController
         return $this->respond(null, 204);
     }
 
-    
+
 }
