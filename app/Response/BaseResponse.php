@@ -72,7 +72,7 @@ class BaseResponse
             'status' => $this->status,
             'timestamp' => $this->timestamp,
             'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'company' => $params->companyName,
+            'company' => $params,
             'token' => $token
         ));
     }

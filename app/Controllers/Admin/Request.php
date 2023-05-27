@@ -18,7 +18,7 @@ class Request extends ResourceController
     public function registerRequest($user)
     {
         $data = [
-            'id'      => RandomUUID::getUUID('r'),
+            'id'      => $this->request->getVar('id'),
             'date'    => date('Y-m-d'),
             'value'     => $this->request->getVar('value'),
             'fk_customer'     => null

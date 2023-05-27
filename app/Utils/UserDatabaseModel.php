@@ -10,11 +10,10 @@ class UserDatabaseModel
   private $password;
   private $host;
 
-  public function __construct($name, $password = '', $host = 'localhost') {
-    $test = new Database();
+  public function __construct($name) {
     $this->name = $name;
-    $this->password = $test->default['password'] ? $test->default['password'] : $host;
-    $this->host = $test->default['hostname'] ? $test->default['hostname'] : $host;
+    $this->password = getenv('database.default.password');
+    $this->host = getenv('database.default.hostname');
   }
 
   public function createUserDB()
@@ -26,7 +25,7 @@ class UserDatabaseModel
     $db = [
       'hostname' => $this->host,
       'username' => 'root',
-      'password' => '',
+      'password' => $this->password,
       'database' => $this->name,
       'DBDriver' => 'MySQLi',
       'pConnect' => false,

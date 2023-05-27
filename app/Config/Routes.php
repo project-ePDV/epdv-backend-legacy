@@ -74,6 +74,8 @@ $routes->post('/sign/login', 'Sign::authenticate');
 $routes->get('/auth/expire', 'Sign::expireAllToken');
 $routes->get('/auth/token/(:any)', 'Sign::valideToken/$1');
 
+$routes->get('/test', 'Sign::test/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

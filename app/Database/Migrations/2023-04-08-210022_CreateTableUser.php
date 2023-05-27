@@ -34,6 +34,11 @@ class CreateTableUser extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '60',
                 'null'       => false
+            ],
+            'companyid' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '60',
+                'null'       => false
             ]
         ]);
         $this->forge->addKey('id', true);

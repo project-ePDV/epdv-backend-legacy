@@ -24,6 +24,8 @@ class Sign extends ResourceController
         $companyName = $this->request->getVar('companyName');
         $confirmPassword = $this->request->getVar('confirmPassword');
 
+        $dbName = uniqid($companyName);
+
         $firstEmployee = [
             'cpf' => '00000000000',
             'name' => $name,
@@ -32,10 +34,13 @@ class Sign extends ResourceController
             'telephone' => '000000000',
             'role' => 'admin'
         ];
+        
 
         $user = [
             'name' => $name,
             'email' => $email,
+            'companyName' => $companyName,
+            'companyId' => $dbName,
             'password' => password_hash($password, PASSWORD_BCRYPT)
         ];
 
@@ -61,7 +66,7 @@ class Sign extends ResourceController
         }
 
         try {
-            $dbName = uniqid($companyName);
+            
             $newUserDB = new UserDatabaseModel($dbName);
             $queries = new DatabaseUserQueries();
             $db = $newUserDB->createUserDB();
@@ -95,6 +100,7 @@ class Sign extends ResourceController
 
         if ($userModel->authenticate($params)) {
             $company = $userModel->getCompany($params['email']);
+
             $token = JWT::getToken($userModel->getUser($params['email']));
 
             $userSession['userSession'] = isset($_SESSION['userSession']) ? $_SESSION['userSession'] : [];
@@ -134,6 +140,4 @@ class Sign extends ResourceController
         $session->destroy();
         return $this->respond(null, 204);
     }
-
-
 }
