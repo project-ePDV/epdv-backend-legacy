@@ -50,9 +50,5 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public \
 # Expor porta 80 para o Apache
 EXPOSE 80
 
-# Baixar e atualizar as dependências do projeto
-RUN composer install --no-dev --no-scripts --no-autoloader && \
-    composer update --no-dev
-
 # Iniciar web service do Apache
 CMD ["apache2-foreground"]
