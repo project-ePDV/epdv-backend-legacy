@@ -32,6 +32,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 # Copiar arquivo de configuração do Apache
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
+RUN chmod -R 755 /var/www/html
+
 # Dar permissão no diretório de trabalho
 RUN chmod -R 777 /var/www/html/public && \
     chmod -R 777 /var/www/html/writable
