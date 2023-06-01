@@ -18,11 +18,11 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html
 
 # Baixar e extrair CodeIgniter 4
-RUN curl -LOk https://github.com/codeigniter4/CodeIgniter4/archive/v4.1.4.zip && \
-    unzip v4.1.4.zip && \
-    rm v4.1.4.zip && \
-    mv CodeIgniter4-4.1.4/* . && \
-    rm -rf CodeIgniter4-4.1.4
+RUN curl -LOk https://github.com/project-ePDV/epdv-backend/archive/refs/heads/main.zip  
+RUN unzip main.zip
+RUN rm main.zip     
+RUN mv epdv-backend-main/* .
+RUN rm -rf epdv-backend-main
 
 # Instalar Composer e definir diretório de instalação
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
