@@ -1,3 +1,4 @@
 #!/bin/bash
 
-echo "Olá, Mundo!"
+echo 'hello world'
+composer update
