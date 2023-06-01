@@ -34,7 +34,8 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Dar permissão no diretório de trabalho
 RUN chmod -R 777 /var/www/html/public && \
-    chmod -R 777 /var/www/html/writable
+    chmod -R 777 /var/www/html/writable 
+RUN    chmod 777 /var/www/html
 
 # Definir variáveis de ambiente para conexão com o MySQL
 ENV DB_HOST=db_epdv \
@@ -43,7 +44,7 @@ ENV DB_HOST=db_epdv \
     DB_PASSWORD=admin123
 
 # Definir diretório raiz do Apache e logs
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public \
+ENV APACHE_DOCUMENT_ROOT=/var/www/html \
     APACHE_LOG_DIR=/var/log/apache2 \
     APACHE_ERROR_LOG_DIR=/var/log/apache2
 
@@ -54,8 +55,6 @@ EXPOSE 80
 RUN composer install --no-dev --no-scripts --no-autoloader && \
     composer update --no-dev
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
@@ -63,3 +62,4 @@ RUN chmod -R 777 /var/www/html/public && \
     chmod -R 777 /var/www/html/writable
 # Iniciar web service do Apache
 CMD ["apache2-foreground"]
+
