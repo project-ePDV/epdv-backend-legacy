@@ -49,5 +49,7 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public \
 
 # Expor porta 80 para o Apache
 EXPOSE 80
+
+RUN composer install
 # Iniciar web service do Apache
 CMD ["apache2-foreground"]
