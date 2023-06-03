@@ -45,20 +45,22 @@ class BaseDTO
 
   public function pageableEntity($params, $column = "*")
   {
+    extract($params);
     return $this->database
       ->table($this->table)
       ->select($column)
-      ->get($params["size"], ($params['page'] - 1))
+      ->get($size, $this->getPage($page, $size))
       ->getResult();
   }
 
   public function filterEntity($params, $column = "*")
   {
+    extract($params);
     return $this->database
       ->table($this->table)
       ->select($column)
-      ->where($params["filter"], $params["value"])
-      ->get($params["size"], ($params['page'] - 1))
+      ->where($filter, $value)
+      ->get($size, $this->getPage($page, $size))
       ->getResult();
   }
 
@@ -98,5 +100,10 @@ class BaseDTO
       ->delete();
 
     return $delete > 0;
+  }
+
+  private function getPage($page, $size)
+  {
+    return (($page - 1) * $size);
   }
 }
