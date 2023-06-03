@@ -26,18 +26,20 @@ class ProductsResponse extends BaseResponse
 
         return $this->responseAll($records);
     }
+    
     public function responsePageableProducts($params)
     {
         extract($params);
 
         $productDTO = new ProductsDTO($this->database);
         $records = $productDTO->pageableProducts($page, $size);
+        $count = $productDTO->countEntity();
 
         if (!$productDTO->pageableProducts($page, $size)) {
             throw new Exception('Não foi possível retornar os produtos');
         }
 
-        return $this->responsePageable($params, $records);
+        return $this->responsePageable($params, $records, $count);
     }
 
     public function responseFilteredProducts($params)
@@ -46,12 +48,13 @@ class ProductsResponse extends BaseResponse
 
         $productDTO = new ProductsDTO($this->database);
         $records = $productDTO->filteredProducts($filter, $value, $page, $size);
+        $count = $productDTO->countWhereEntity($filter, $value);
 
         if (!$productDTO->filteredProducts($filter, $value, $page, $size)) {
             throw new Exception('Não foi possível retornar os produtos filtrados');
         }
 
-        return $this->responseFiltered($params, $records);
+        return $this->responseFiltered($params, $records, $count);
     }
 
     public function responseProductById($id)

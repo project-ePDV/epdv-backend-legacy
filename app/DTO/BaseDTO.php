@@ -10,7 +10,6 @@ class BaseDTO
 {
   private $user;
   protected $database;
-
   private $table;
 
   public function __construct($database, $table)
@@ -27,6 +26,21 @@ class BaseDTO
       ->select($column)
       ->get()
       ->getResult();
+  }
+
+  public function countEntity() 
+  {
+    return $this->database
+      ->table($this->table)
+      ->countAllResults();
+  }
+
+  public function countWhereEntity($filter, $value) 
+  {
+    return $this->database
+      ->table($this->table)
+      ->where($filter, $value)
+      ->countAllResults();
   }
 
   public function pageableEntity($params, $column = "*")

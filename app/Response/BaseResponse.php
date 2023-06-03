@@ -2,9 +2,6 @@
 
 namespace App\Response;
 
-use App\DTO\ProductsDTO;
-use Exception;
-
 class BaseResponse
 {
     private $timestamp;
@@ -30,7 +27,7 @@ class BaseResponse
         ));
     }
 
-    public function responsePageable($params = [], $response)
+    public function responsePageable($params = [], $response, $count)
     {
         extract($params);
 
@@ -39,11 +36,12 @@ class BaseResponse
             'timestamp' => $this->timestamp,
             'date' => date('Y-m-d H:i:s', $this->timestamp),
             'params' => $params,
+            'total' => $count,
             'records' => $response
         ));
     }
 
-    public function responseFiltered($params, $response)
+    public function responseFiltered($params, $response, $count)
     {
         extract($params);
 
@@ -52,6 +50,7 @@ class BaseResponse
             'timestamp' => $this->timestamp,
             'date' => date('Y-m-d H:i:s', $this->timestamp),
             'params' => $params,
+            'total' => $count,
             'records' => $response
         ));
     }
@@ -66,6 +65,7 @@ class BaseResponse
             'records' => $response
         ));
     }
+
     public function responseSign($params, $token)
     {
         return (array(
