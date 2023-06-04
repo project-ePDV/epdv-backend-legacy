@@ -19,15 +19,6 @@ class BaseDTO
     $this->table = $table;
   }
 
-  public function getAllEntity($column = "*")
-  {
-    return $this->database
-      ->table($this->table)
-      ->select($column)
-      ->get()
-      ->getResult();
-  }
-
   public function countEntity() 
   {
     return $this->database
@@ -35,12 +26,23 @@ class BaseDTO
       ->countAllResults();
   }
 
-  public function countWhereEntity($filter, $value) 
+  public function countWhereEntity($params) 
+  {
+    extract($params);
+    return $this->database
+      ->table($this->table)
+      ->where($filter . '>=', $minValue)
+      ->where($filter . '<=', $maxValue)
+      ->countAllResults();
+  }
+  
+  public function getAllEntity($column = "*")
   {
     return $this->database
       ->table($this->table)
-      ->where($filter, $value)
-      ->countAllResults();
+      ->select($column)
+      ->get()
+      ->getResult();
   }
 
   public function pageableEntity($params, $column = "*")
@@ -59,7 +61,8 @@ class BaseDTO
     return $this->database
       ->table($this->table)
       ->select($column)
-      ->where($filter, $value)
+      ->where($filter . '>=', $minValue)
+      ->where($filter . '<=', $maxValue)
       ->get($size, $this->getPage($page, $size))
       ->getResult();
   }

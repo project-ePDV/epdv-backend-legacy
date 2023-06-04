@@ -47,10 +47,10 @@ class ProductsResponse extends BaseResponse
         extract($params);
 
         $productDTO = new ProductsDTO($this->database);
-        $records = $productDTO->filteredProducts($filter, $value, $page, $size);
-        $count = $productDTO->countWhereEntity($filter, $value);
+        $records = $productDTO->filteredProducts($params);
+        $count = $productDTO->countWhereEntity($params);
 
-        if (!$productDTO->filteredProducts($filter, $value, $page, $size)) {
+        if (!$productDTO->filteredProducts($params)) {
             throw new Exception('Não foi possível retornar os produtos filtrados');
         }
 

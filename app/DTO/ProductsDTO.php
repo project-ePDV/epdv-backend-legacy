@@ -24,15 +24,8 @@ class ProductsDTO extends BaseDTO
         return $this->pageableEntity($params);
     }
 
-    public function filteredProducts($filter, $value, $page, $size)
+    public function filteredProducts($params)
     {
-        $params = [
-            "page" => $page,
-            "size" => $size,
-            "filter" => $filter,
-            "value" => $value,
-        ];
-
         return $this->filterEntity($params);
     }
 
