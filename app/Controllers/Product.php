@@ -23,7 +23,6 @@ class Product extends ResourceController
         $response = new ProductsResponse($database);
 
         try {
-            
             $data = $response->responseFindAllProducts($params);
             if (isset($page) && isset($size)) {
                 $data = $response->responsePageableProducts($params);

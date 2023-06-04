@@ -26,13 +26,21 @@ class BaseDTO
       ->countAllResults();
   }
 
+  public function maxValue($filter) {
+    return $this->database
+      ->table($this->table)
+      ->selectMax($filter)
+      ->get()
+      ->getFirstRow()->$filter;
+  }
+
   public function countWhereEntity($params) 
   {
     extract($params);
     return $this->database
       ->table($this->table)
       ->where($filter . '>=', $minValue)
-      ->where($filter . '<=', $maxValue)
+      ->where($filter . '<=', $this->getMaxValue($params))
       ->countAllResults();
   }
   
@@ -62,7 +70,7 @@ class BaseDTO
       ->table($this->table)
       ->select($column)
       ->where($filter . '>=', $minValue)
-      ->where($filter . '<=', $maxValue)
+      ->where($filter . '<=', $this->getMaxValue($params))
       ->get($size, $this->getPage($page, $size))
       ->getResult();
   }
@@ -108,5 +116,10 @@ class BaseDTO
   private function getPage($page, $size)
   {
     return (($page - 1) * $size);
+  }
+
+  private function getMaxValue($params) {
+    extract($params);
+    return isset($maxValue) ? $maxValue : $this->maxValue($filter);
   }
 }
