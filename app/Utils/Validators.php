@@ -36,7 +36,7 @@ class Validators
 
 $params = [
   'nome' => '123',
-  'email' => '321',
+  'email' => '',
   'senha' => '2'
 ];
 
@@ -45,3 +45,5 @@ $validations = new Validators($params);
 $validations->isRequired(['nome', 'email']);
 
 print_r(json_encode($validations->getValidations()));
+
+empty($validations->getValidations()['validations']) ? print('ok') : print('n ok');
