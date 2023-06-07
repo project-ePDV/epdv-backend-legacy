@@ -8,9 +8,7 @@ use App\Utils\DatabaseUserQueries;
 use App\Utils\UserDatabaseModel;
 use App\Response\SignResponse;
 use App\Utils\JWT;
-use App\Utils\RandomUUID;
 use CodeIgniter\RESTful\ResourceController;
-use DateTime;
 use Exception;
 
 class Sign extends ResourceController

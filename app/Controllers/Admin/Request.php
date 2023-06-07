@@ -3,9 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Response\ProductsRequestResponse;
-use App\Response\ProductsResponse;
 use App\Response\RequestsResponse;
-use App\Utils\RandomUUID;
 use CodeIgniter\RESTful\ResourceController;
 
 class Request extends ResourceController

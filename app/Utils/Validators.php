@@ -4,7 +4,6 @@ namespace App\Utils;
 
 class Validators
 {
-  private $params;
   private $receiveParams;
   private $validations;
 
@@ -21,14 +20,17 @@ class Validators
 
   public function isRequired($params)
   {
-    $required['required'] = [];
+    $required = [];
 
     foreach ($params as $param) {
       if (!isset($this->receiveParams[$param]) || $this->receiveParams[$param] === '') {
-        array_push($required['required'], "$param is required");
+        $required[$param] = "$param is required";
       }
     }
-    array_push($this->validations['validations'], $required);
+
+    if (!empty($required)) {
+      $this->validations['validations'][] = ['required' => $required];
+    }
   }
 }
 
@@ -38,13 +40,8 @@ $params = [
   'senha' => '2'
 ];
 
-
 $validations = new Validators($params);
 
 $validations->isRequired(['nome', 'email']);
 
 print_r(json_encode($validations->getValidations()));
-
-
-
-
