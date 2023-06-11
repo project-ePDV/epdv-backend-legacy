@@ -39,7 +39,7 @@ class ProductsResponse extends BaseResponse
             throw new Exception('Não foi possível retornar os produtos');
         }
 
-        return $this->responsePageable($params, $records, $count);
+        return $this->responsePageable($records, $count, $params);
     }
 
     public function responseFilteredProducts($params)
@@ -54,7 +54,7 @@ class ProductsResponse extends BaseResponse
             throw new Exception('Não foi possível retornar os produtos filtrados');
         }
 
-        return $this->responseFiltered($params, $records, $count);
+        return $this->responsePageable($records, $count, $params);
     }
 
     public function responseProductById($id)

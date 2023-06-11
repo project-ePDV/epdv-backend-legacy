@@ -56,6 +56,7 @@ class BaseDTO
   public function pageableEntity($params, $column = "*")
   {
     extract($params);
+
     return $this->database
       ->table($this->table)
       ->select($column)

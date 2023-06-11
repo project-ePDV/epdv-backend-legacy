@@ -24,6 +24,8 @@ class Sign extends ResourceController
 
         $dbName = uniqid($companyName);
 
+        $INTERNAL_ERROR = 'Internal Server Error';
+
         $firstEmployee = [
             'cpf' => '00000000000',
             'name' => $name,
@@ -44,7 +46,7 @@ class Sign extends ResourceController
 
         $response = new SignResponse();
         $response->setStatus(201);
-        $err = $response->error('Internal Server Error');
+        $err = $response->error($INTERNAL_ERROR );
         $success = $response->registerSuccess('Success');
 
         if ($password == $confirmPassword) {
@@ -55,7 +57,7 @@ class Sign extends ResourceController
             } catch (Exception $error) {
                 $response->setStatus(500);
                 $err = $response->error('Não foi possível criar novo usuário');
-                return $this->respond($err, 500, 'Internal Server Error');
+                return $this->respond($err, 500, $INTERNAL_ERROR );
             }
         } else {
             $response->setStatus(400);
@@ -71,7 +73,7 @@ class Sign extends ResourceController
         } catch (Exception $error) {
             $response->setStatus(500);
             $err = $response->error('Não foi possível criar novo usuário');
-            return $this->respond($err, 500, 'Internal Server Error');
+            return $this->respond($err, 500, $INTERNAL_ERROR );
         }
 
         try {
@@ -110,7 +112,7 @@ class Sign extends ResourceController
             array_unshift($userSession['userSession'], $tokenSession);
             $session->set($userSession);
 
-            return $this->respond($response->responseSign($company, $token), 200);
+            return $this->respond($response->responseSign($company, $token, $params['email']), 200);
         }
         $response->setStatus(403);
         $data = $response->responseGeneric("Não autorizado");

@@ -43,7 +43,3 @@ $params = [
 $validations = new Validators($params);
 
 $validations->isRequired(['nome', 'email']);
-
-print_r(json_encode($validations->getValidations()));
-
-empty($validations->getValidations()['validations']) ? print('ok') : print('n ok');

@@ -6,7 +6,7 @@ class ProductRequestDTO extends BaseDTO
 {
     public function __construct($database)
     {
-        parent::__construct($database, "ProductRequest");
+        parent::__construct($database, "product_request");
     }
 
     public function getAllProductsRequest()
@@ -17,7 +17,7 @@ class ProductRequestDTO extends BaseDTO
     public function productRequestById($id)
     {
         return $this->database
-            ->table("ProductRequest")
+            ->table("product_request")
             ->select()
             ->where('fk_request', $id)
             ->get()

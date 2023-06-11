@@ -18,8 +18,7 @@ class Request extends ResourceController
         $data = [
             'id'      => $this->request->getVar('id'),
             'date'    => date('Y-m-d'),
-            'value'     => $this->request->getVar('value'),
-            'fk_customer'     => null
+            'value'     => $this->request->getVar('value')
         ];
 
         $response = new RequestsResponse($user);
@@ -64,8 +63,7 @@ class Request extends ResourceController
         $data = [
             'id'      => $id,
             'date'    => date('Y-m-d'),
-            'value'     => $this->request->getVar('value'),
-            'fk_customer'     => null
+            'value'     => $this->request->getVar('value')
         ];
 
         $response = new RequestsResponse($user);
