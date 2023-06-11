@@ -22,17 +22,17 @@ class CreateTableCustomer extends Migration
             'rg' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => '9',
-                'null'          => false
+                'null'          => true
             ],
             'email' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '150',
-                'null'       => true
+                'null'       => false
             ],
             'telephone' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => '11',
-                'null'          => false
+                'null'          => true
             ],
             'fk_address' => [
                 'type'          => 'INT',

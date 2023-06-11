@@ -18,12 +18,12 @@ class CreateTableAddress extends Migration
             'address' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
-                'null'       => true
+                'null'       => false
             ],
             'number' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => '5',
-                'null'          => false
+                'null'          => true
             ],
             'district' => [
                 'type'       => 'VARCHAR',
@@ -33,7 +33,7 @@ class CreateTableAddress extends Migration
             'city' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => '50',
-                'null'          => false
+                'null'          => true
             ],
             'state' => [
                 'type'       => 'VARCHAR',

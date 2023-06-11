@@ -35,7 +35,7 @@ class CreateTableUser extends Migration
                 'constraint' => '60',
                 'null'       => false
             ],
-            'companyid' => [
+            'companyId' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '60',
                 'null'       => false

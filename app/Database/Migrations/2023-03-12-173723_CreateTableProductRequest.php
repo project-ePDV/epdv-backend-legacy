@@ -8,7 +8,7 @@ class CreateTableProductRequest extends Migration
 {
     public function up()
     {
-        $this->forge->dropTable('ProductRequest', true);
+        $this->forge->dropTable('product_request', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -23,16 +23,17 @@ class CreateTableProductRequest extends Migration
             'fk_request'     => [
                 'type'       => 'CHAR',
                 'constraint' => 36,
+                'null'       => false
             ]
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('fk_product', 'product', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('fk_request', 'request', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('ProductRequest');
+        $this->forge->createTable('product_request');
     }
 
     public function down()
     {
-        $this->forge->dropTable('ProductRequest');
+        $this->forge->dropTable('product_request');
     }
 }

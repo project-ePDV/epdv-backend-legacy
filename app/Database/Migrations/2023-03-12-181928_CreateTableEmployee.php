@@ -12,8 +12,7 @@ class CreateTableEmployee extends Migration
         $this->forge->addField([
             'cpf' => [
                 'type'           => 'VARCHAR',
-                'constraint' => '11',
-                'auto_increment' => true,
+                'constraint' => '11'
             ],
             'name' => [
                 'type'       => 'VARCHAR',
@@ -33,7 +32,7 @@ class CreateTableEmployee extends Migration
             'telephone' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => '11',
-                'null'          => false
+                'null'          => true
             ],
             'role' => [
                 'type'       => 'VARCHAR',
