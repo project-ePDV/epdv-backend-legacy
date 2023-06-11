@@ -114,10 +114,10 @@ class Sign extends ResourceController
 
             return $this->respond($response->responseSign($company, $token, $params['email']), 200);
         }
-        $response->setStatus(403);
+        $response->setStatus(401);
         $data = $response->responseGeneric("Não autorizado");
 
-        return $this->respond($data, 403);
+        return $this->respond($data, 401);
     }
 
     public function valideToken($token)
@@ -131,7 +131,7 @@ class Sign extends ResourceController
             return $this->respond($data, 200);
         }
         $data = $response->responseGeneric("Não autorizado");
-        return $this->respond($data, 403);
+        return $this->respond($data, 401);
     }
 
     public function expireAllToken()

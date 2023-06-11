@@ -37,22 +37,22 @@ $routes->get('/', 'Home::index');
 //Migration Route
 
 //Vendas route
-$routes->get('/api/(:any)/vendas', 'Request::getRequestPageable/$1');
-$routes->get('/api/(:any)/vendas/(:any)', 'Request::getRequestById/$1/$2');
-$routes->post('/api/(:any)/admin/vendas', 'Admin\Request::registerRequest/$1');
-$routes->put('/api/(:any)/admin/vendas/(:any)', 'Admin\Request::updateRequest/$1/$2');
+$routes->get('/api/(:any)/vendas', 'Request::getRequestPageable/$1', ['filter' => 'auth']);
+$routes->get('/api/(:any)/vendas/(:any)', 'Request::getRequestById/$1/$2', ['filter' => 'auth']);
+$routes->post('/api/(:any)/admin/vendas', 'Admin\Request::registerRequest/$1', ['filter' => 'auth']);
+$routes->put('/api/(:any)/admin/vendas/(:any)', 'Admin\Request::updateRequest/$1/$2', ['filter' => 'auth']);
 
 //Adicionar produto em uma venda
-$routes->get('/api/(:any)/vendaProduto', 'Request::getAllProductsRequest/$1');
-$routes->get('/api/(:any)/vendaProduto/(:any)', 'Request::getProductsRequestById/$1/$2');
-$routes->post('/api/(:any)/admin/vendaProduto', 'Admin\Request::registerProductsRequest/$1');
+$routes->get('/api/(:any)/vendaProduto', 'Request::getAllProductsRequest/$1', ['filter' => 'auth']);
+$routes->get('/api/(:any)/vendaProduto/(:any)', 'Request::getProductsRequestById/$1/$2', ['filter' => 'auth']);
+$routes->post('/api/(:any)/admin/vendaProduto', 'Admin\Request::registerProductsRequest/$1', ['filter' => 'auth']);
 
 // Product route
-$routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1');
-$routes->get('/api/(:any)/produtos/(:num)', 'Product::getProductById/$1/$2');
-$routes->post('/api/(:any)/admin/produtos', 'Admin\Product::registerProduct/$1');
-$routes->delete('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::deleteProduct/$1/$2');
-$routes->put('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::updateProduct/$1/$2');
+$routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1', ['filter' => 'auth']);
+$routes->get('/api/(:any)/produtos/(:num)', 'Product::getProductById/$1/$2', ['filter' => 'auth']);
+$routes->post('/api/(:any)/admin/produtos', 'Admin\Product::registerProduct/$1', ['filter' => 'auth']);
+$routes->delete('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::deleteProduct/$1/$2', ['filter' => 'auth']);
+$routes->put('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::updateProduct/$1/$2', ['filter' => 'auth']);
 
 // User route
 // retorna dados basicos do usuario logado
@@ -73,8 +73,6 @@ $routes->post('/sign/login', 'Sign::authenticate');
 //Auth route
 $routes->get('/auth/expire', 'Sign::expireAllToken');
 $routes->get('/auth/token/(:any)', 'Sign::valideToken/$1');
-
-$routes->get('/test', 'Sign::test/$1');
 
 /*
  * --------------------------------------------------------------------

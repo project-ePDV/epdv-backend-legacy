@@ -24,7 +24,6 @@ class App extends BaseConfig
      * @var string
      */
     public $baseURL = '';
-
     /**
      * --------------------------------------------------------------------------
      * Index File
