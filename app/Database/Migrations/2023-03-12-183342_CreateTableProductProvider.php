@@ -8,7 +8,7 @@ class CreateTableProductProvider extends Migration
 {
     public function up()
     {
-        $this->forge->dropTable('ProductProvider', true);
+        $this->forge->dropTable('product_provider', true);
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
@@ -29,11 +29,11 @@ class CreateTableProductProvider extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('fk_product', 'product', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('fk_provider', 'provider', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('ProductProvider');
+        $this->forge->createTable('product_provider');
     }
 
     public function down()
     {
-        $this->forge->dropTable('ProductProvider');
+        $this->forge->dropTable('product_provider');
     }
 }

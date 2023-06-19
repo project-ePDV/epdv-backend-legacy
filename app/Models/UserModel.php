@@ -16,7 +16,7 @@ class UserModel extends Model
     {
         return $this->db
             ->table($this->table)
-            ->select('companyName')
+            ->select('companyName, companyId')
             ->where("email", $email)
             ->get()
             ->getFirstRow();
@@ -26,7 +26,7 @@ class UserModel extends Model
     {
         return $this->db
             ->table($this->table)
-            ->select('name, email, companyName')
+            ->select('name, email, companyName, companyId')
             ->where("email", $email)
             ->get()
             ->getRowArray();

@@ -23,12 +23,11 @@ class Product extends ResourceController
         $response = new ProductsResponse($database);
 
         try {
-            
             $data = $response->responseFindAllProducts($params);
             if (isset($page) && isset($size)) {
                 $data = $response->responsePageableProducts($params);
             }
-            if (isset($filter) && isset($value)) {
+            if (isset($filter) && isset($minValue)) {
                 $data = $response->responseFilteredProducts($params);
             }
             return $this->respond($data, 200, 'success');

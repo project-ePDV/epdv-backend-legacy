@@ -8,9 +8,7 @@ use App\Utils\DatabaseUserQueries;
 use App\Utils\UserDatabaseModel;
 use App\Response\SignResponse;
 use App\Utils\JWT;
-use App\Utils\RandomUUID;
 use CodeIgniter\RESTful\ResourceController;
-use DateTime;
 use Exception;
 
 class Sign extends ResourceController
@@ -24,24 +22,31 @@ class Sign extends ResourceController
         $companyName = $this->request->getVar('companyName');
         $confirmPassword = $this->request->getVar('confirmPassword');
 
+        $dbName = uniqid($companyName);
+
+        $INTERNAL_ERROR = 'Internal Server Error';
+
         $firstEmployee = [
-            'cpf'       => '00000000000',
-            'name'      => $name,
-            'rg'        => '000000000',
-            'email'     => $email,
+            'cpf' => '00000000000',
+            'name' => $name,
+            'rg' => '000000000',
+            'email' => $email,
             'telephone' => '000000000',
-            'role'      => 'admin'
+            'role' => 'admin'
         ];
+        
 
         $user = [
-            'name'      => $name,
-            'email'     => $email,
-            'password'  => password_hash($password, PASSWORD_BCRYPT)
+            'name' => $name,
+            'email' => $email,
+            'companyName' => $companyName,
+            'companyId' => $dbName,
+            'password' => password_hash($password, PASSWORD_BCRYPT)
         ];
 
         $response = new SignResponse();
         $response->setStatus(201);
-        $err = $response->error('Internal Server Error');
+        $err = $response->error($INTERNAL_ERROR );
         $success = $response->registerSuccess('Success');
 
         if ($password == $confirmPassword) {
@@ -52,7 +57,7 @@ class Sign extends ResourceController
             } catch (Exception $error) {
                 $response->setStatus(500);
                 $err = $response->error('Não foi possível criar novo usuário');
-                return $this->respond($err, 500, 'Internal Server Error');
+                return $this->respond($err, 500, $INTERNAL_ERROR );
             }
         } else {
             $response->setStatus(400);
@@ -61,14 +66,14 @@ class Sign extends ResourceController
         }
 
         try {
-            $dbName = uniqid($companyName);
+            
             $newUserDB = new UserDatabaseModel($dbName);
             $queries = new DatabaseUserQueries();
             $db = $newUserDB->createUserDB();
         } catch (Exception $error) {
             $response->setStatus(500);
             $err = $response->error('Não foi possível criar novo usuário');
-            return $this->respond($err, 500, 'Internal Server Error');
+            return $this->respond($err, 500, $INTERNAL_ERROR );
         }
 
         try {
@@ -95,46 +100,38 @@ class Sign extends ResourceController
 
         if ($userModel->authenticate($params)) {
             $company = $userModel->getCompany($params['email']);
+
             $token = JWT::getToken($userModel->getUser($params['email']));
 
             $userSession['userSession'] = isset($_SESSION['userSession']) ? $_SESSION['userSession'] : [];
             $tokenSession = [
-                'token'  => $token,
-                'timestamp'     => date('Y-m-d H:i:s', time())
+                'token' => $token,
+                'timestamp' => date('Y-m-d H:i:s', time())
             ];
 
             array_unshift($userSession['userSession'], $tokenSession);
             $session->set($userSession);
 
-            return $this->respond($response->responseSign($company, $token), 200);
+            return $this->respond($response->responseSign($company, $token, $params['email']), 200);
         }
-        $response->setStatus(403);
+        $response->setStatus(401);
         $data = $response->responseGeneric("Não autorizado");
 
-        return $this->respond($data, 403);
+        return $this->respond($data, 401);
     }
 
     public function valideToken($token)
     {
         $response = new BaseResponse();
-        $session = \Config\Services::session();
+        $time = JWT::decode($token, getenv('secret_key'))['timestamp'];
+        $tokenTimeValid = !(($time + (1 * 24 * 60 * 60)) < time());
 
-        foreach ($session->get('userSession') as $value) {
-            if ($value['token'] == $token) {
-                $dateOld = new DateTime($value['timestamp']);
-                $timeDiff = $dateOld->diff(new DateTime());
-
-                if ($timeDiff->days > 1) {
-                    $response->setStatus(401);
-                    return $this->respond($response->responseGeneric('Não autorizado'), 401);
-                }
-                
-                return $this->respond($response->responseGeneric($token), 200);
-            }
+        if (JWT::valideToken($token, getenv('secret_key')) && $tokenTimeValid) {
+            $data = $response->responseGeneric("Autorizado");
+            return $this->respond($data, 200);
         }
-
-        $response->setStatus(401);
-        return $this->respond($response->responseGeneric('Não autorizado'), 401);
+        $data = $response->responseGeneric("Não autorizado");
+        return $this->respond($data, 401);
     }
 
     public function expireAllToken()
@@ -143,6 +140,4 @@ class Sign extends ResourceController
         $session->destroy();
         return $this->respond(null, 204);
     }
-
-    
 }

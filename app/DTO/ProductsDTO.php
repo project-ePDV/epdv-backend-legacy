@@ -4,6 +4,7 @@ namespace App\DTO;
 
 class ProductsDTO extends BaseDTO
 {
+    private $column = 'id, name, amount, brand, price, status';
     public function __construct($database)
     {
         parent::__construct($database, "product");
@@ -21,24 +22,17 @@ class ProductsDTO extends BaseDTO
             "size" => $size
         ];
 
-        return $this->pageableEntity($params);
+        return $this->pageableEntity($params, $this->column);
     }
 
-    public function filteredProducts($filter, $value, $page, $size)
+    public function filteredProducts($params)
     {
-        $params = [
-            "page" => $page,
-            "size" => $size,
-            "filter" => $filter,
-            "value" => $value,
-        ];
-
-        return $this->filterEntity($params);
+        return $this->filterEntity($params, $this->column);
     }
 
     public function productById($id)
     {
-        return $this->getEntityById($id);
+        return $this->getEntityById($id, $this->column);
     }
 
     public function productSave($data)

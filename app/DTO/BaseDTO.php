@@ -10,7 +10,6 @@ class BaseDTO
 {
   private $user;
   protected $database;
-
   private $table;
 
   public function __construct($database, $table)
@@ -20,6 +19,31 @@ class BaseDTO
     $this->table = $table;
   }
 
+  public function countEntity() 
+  {
+    return $this->database
+      ->table($this->table)
+      ->countAllResults();
+  }
+
+  public function maxValue($filter) {
+    return $this->database
+      ->table($this->table)
+      ->selectMax($filter)
+      ->get()
+      ->getFirstRow()->$filter;
+  }
+
+  public function countWhereEntity($params) 
+  {
+    extract($params);
+    return $this->database
+      ->table($this->table)
+      ->where($filter . '>=', $minValue)
+      ->where($filter . '<=', $this->getMaxValue($params))
+      ->countAllResults();
+  }
+  
   public function getAllEntity($column = "*")
   {
     return $this->database
@@ -31,20 +55,26 @@ class BaseDTO
 
   public function pageableEntity($params, $column = "*")
   {
+    extract($params);
+
     return $this->database
       ->table($this->table)
       ->select($column)
-      ->get($params["size"], ($params['page'] - 1))
+      ->where('status', 1)
+      ->get($size, $this->getPage($page, $size))
       ->getResult();
   }
 
   public function filterEntity($params, $column = "*")
   {
+    extract($params);
     return $this->database
       ->table($this->table)
       ->select($column)
-      ->where($params["filter"], $params["value"])
-      ->get($params["size"], ($params['page'] - 1))
+      ->where('status', 1)
+      ->where($filter . '>=', $minValue)
+      ->where($filter . '<=', $this->getMaxValue($params))
+      ->get($size, $this->getPage($page, $size))
       ->getResult();
   }
 
@@ -53,6 +83,7 @@ class BaseDTO
     return $this->database
       ->table($this->table)
       ->select($column)
+      ->where('status', 1)
       ->where('id', $id)
       ->get()
       ->getResult();
@@ -80,9 +111,20 @@ class BaseDTO
   {
     $delete = $this->database
       ->table($this->table)
+      ->set('status', 0)
       ->where('id', $id)
-      ->delete();
+      ->update();
 
     return $delete > 0;
+  }
+
+  private function getPage($page, $size)
+  {
+    return (($page - 1) * $size);
+  }
+
+  private function getMaxValue($params) {
+    extract($params);
+    return isset($maxValue) ? $maxValue : $this->maxValue($filter);
   }
 }

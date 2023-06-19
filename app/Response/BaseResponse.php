@@ -2,13 +2,11 @@
 
 namespace App\Response;
 
-use App\DTO\ProductsDTO;
-use Exception;
-
 class BaseResponse
 {
     private $timestamp;
     private $status = 200;
+    private $DATE_FORMAT = 'Y-m-d H:i:s';
 
     public function __construct()
     {
@@ -22,78 +20,68 @@ class BaseResponse
 
     public function responseAll($response)
     {
-        return (array(
+        return array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'date' => date($this->DATE_FORMAT, $this->timestamp),
             'records' => $response
-        ));
+        );
     }
 
-    public function responsePageable($params = [], $response)
+    public function responsePageable($response, $count, $params = [])
     {
         extract($params);
 
-        return (array(
+        return array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'date' => date($this->DATE_FORMAT, $this->timestamp),
             'params' => $params,
+            'total' => $count,
             'records' => $response
-        ));
-    }
-
-    public function responseFiltered($params, $response)
-    {
-        extract($params);
-
-        return (array(
-            'status' => $this->status,
-            'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'params' => $params,
-            'records' => $response
-        ));
+        );
     }
 
     public function responseById($id, $response)
     {
-        return (array(
+        return array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'date' => date($this->DATE_FORMAT, $this->timestamp),
             'id' => $id,
             'records' => $response
-        ));
+        );
     }
-    public function responseSign($params, $token)
+
+    public function responseSign($params, $token, $email)
     {
-        return (array(
+        return array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
-            'company' => $params->companyName,
-            'token' => $token
-        ));
+            'date' => date($this->DATE_FORMAT, $this->timestamp),
+            'company' => $params,
+            'token' => $token,
+            'email' => $email
+        );
     }
 
     public function responseGeneric($message)
     {
-        return (array(
+        return array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'date' => date($this->DATE_FORMAT, $this->timestamp),
             'message' => $message
-        ));
+        );
     }
 
     public function responseError($exception)
     {
-        return (array(
+        return array(
             'status' => $this->status,
             'timestamp' => $this->timestamp,
-            'date' => date('Y-m-d H:i:s', $this->timestamp),
+            'date' => date($this->DATE_FORMAT, $this->timestamp),
             'message' => $exception->getMessage()
-        ));
+        );
     }
 }
