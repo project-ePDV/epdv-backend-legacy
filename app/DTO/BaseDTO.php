@@ -60,6 +60,7 @@ class BaseDTO
     return $this->database
       ->table($this->table)
       ->select($column)
+      ->where('status', 1)
       ->get($size, $this->getPage($page, $size))
       ->getResult();
   }
@@ -70,6 +71,7 @@ class BaseDTO
     return $this->database
       ->table($this->table)
       ->select($column)
+      ->where('status', 1)
       ->where($filter . '>=', $minValue)
       ->where($filter . '<=', $this->getMaxValue($params))
       ->get($size, $this->getPage($page, $size))
@@ -81,6 +83,7 @@ class BaseDTO
     return $this->database
       ->table($this->table)
       ->select($column)
+      ->where('status', 1)
       ->where('id', $id)
       ->get()
       ->getResult();
@@ -108,8 +111,9 @@ class BaseDTO
   {
     $delete = $this->database
       ->table($this->table)
+      ->set('status', 0)
       ->where('id', $id)
-      ->delete();
+      ->update();
 
     return $delete > 0;
   }

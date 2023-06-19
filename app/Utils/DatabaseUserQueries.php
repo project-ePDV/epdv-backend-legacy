@@ -12,7 +12,8 @@ class DatabaseUserQueries
                 name VARCHAR(50) NOT NULL,
                 amount INT(4) NOT NULL,
                 brand VARCHAR(50),
-                price DECIMAL(10, 2) NOT NULL
+                price DECIMAL(10, 2) NOT NULL,
+                status TINYINT DEFAULT 1
             ) engine = InnoDB;",
             "CREATE TABLE address (
                 id INT PRIMARY KEY AUTO_INCREMENT,

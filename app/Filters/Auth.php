@@ -32,7 +32,6 @@ class Auth implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        
         $headers = new Message();
         $response = Services::response();
         $customResponse = new BaseResponse();
@@ -47,17 +46,20 @@ class Auth implements FilterInterface
         $token = substr($token, 7);
         
         $email = $headers['Email']->getValue();
+        $company = $headers['Company-Code']->getValue();
 
         $validToken = !(JWT::valideToken($token, getenv('secret_key')));
+
 
         try {
             $decodeToken = JWT::decode($token, getenv('secret_key'));
             $validUser = $user->getUser($email)['email'] != $decodeToken['email'];
+            $validCompany = $request->uri->getSegment(2) != $company || $request->uri->getSegment(2) != $decodeToken['companyId'];
         } catch(Exception $e) {
             return $response;
         }
 
-        return $validToken || $validUser ? $response : null;
+        return $validToken || $validUser || $validCompany ? $response : null;
     }
 
     /**

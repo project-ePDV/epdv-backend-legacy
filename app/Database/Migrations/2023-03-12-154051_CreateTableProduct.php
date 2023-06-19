@@ -35,6 +35,11 @@ class CreateTableProduct extends Migration
                 'constraint'    => '10,2',
                 'null'          => false
             ],
+            'status' => [
+                'type'          => 'TINYINT',
+                'constraint'    => '1',
+                'default'       => 1
+            ],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('product');

@@ -51,7 +51,7 @@ $routes->post('/api/(:any)/admin/vendaProduto', 'Admin\Request::registerProducts
 $routes->get('/api/(:any)/produtos', 'Product::getProductsFiltered/$1', ['filter' => 'auth']);
 $routes->get('/api/(:any)/produtos/(:num)', 'Product::getProductById/$1/$2', ['filter' => 'auth']);
 $routes->post('/api/(:any)/admin/produtos', 'Admin\Product::registerProduct/$1', ['filter' => 'auth']);
-$routes->delete('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::deleteProduct/$1/$2', ['filter' => 'auth']);
+$routes->put('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::deleteProduct/$1/$2', ['filter' => 'auth']);
 $routes->put('/api/(:any)/admin/produtos/(:any)', 'Admin\Product::updateProduct/$1/$2', ['filter' => 'auth']);
 
 // User route

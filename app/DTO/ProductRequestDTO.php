@@ -24,9 +24,37 @@ class ProductRequestDTO extends BaseDTO
             ->getResult();
     }
 
+    private function updateProduct($id)
+    {
+        $TABLE = 'product';
+
+        $product =  $this->database
+            ->table($TABLE)
+            ->select()
+            ->where('id', $id)
+            ->get()
+            ->getFirstRow();
+
+        $amount = $product->amount - 1 < 0 ? 0 : $product->amount - 1;
+        
+        $this->database
+            ->table($TABLE)
+            ->set('amount', $amount)
+            ->where('id', $id)
+            ->update();
+
+        return $this->database
+            ->table($TABLE)
+            ->select()
+            ->where('id', $id)
+            ->get()
+            ->getFirstRow();
+    }
+
     public function productRequestSave($data)
     {
-        return $this->saveEntity($data);
+        $this->saveEntity($data);
+        return $this->updateProduct($data['fk_product']);
     }
 
     public function productRequestUpdate($data)
