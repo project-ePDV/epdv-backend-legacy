@@ -13,10 +13,10 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install mysqli pdo pdo_mysql intl
 # --------------------------------
 #Install MySQL
-RUN  apt-get install -y mysql-server 
-RUN  mkdir -p /var/lib/mysql /var/run/mysqld 
-RUN  chown -R mysql:mysql /var/lib/mysql /var/run/mysqld 
-RUN  chmod 777 /var/run/mysqld
+RUN apt-get install mariadb-server
+RUN mkdir -p /var/lib/mysql /var/run/mysqld 
+RUN chown -R mysql:mysql /var/lib/mysql /var/run/mysqld 
+RUN chmod 777 /var/run/mysqld
 
 #Solve the problem that ubuntu cannot log in from another container
 RUN sed -i 's/bind-address/#bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
