@@ -4,8 +4,14 @@ echo 'Initializing....'
 echo 'Instaling dependeces....'
 composer install
 
-echo 'Starter mysql....'
-service mysql start
+apt-get purge mysql-server mysql-common
+apt-get purge mysql-client
+
+apt-get autoremove mysql-server mysql-client mysql-common
+
+apt-get autoclean mysql-server mysql-client mysql-common
+
+sudo apt-get install mysql-server mysql-common mysql-client
 
 echo 'Login mysql....'
 mysql -u root -h localhost -e 'create database db_epdv'
