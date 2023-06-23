@@ -1,4 +1,4 @@
-oy# Use a imagem oficial do PHP como base
+#Use a imagem oficial do PHP como base
 FROM php:7.4-apache
 
 # Atualizar imagem e instalar bibliotecas necessarias
