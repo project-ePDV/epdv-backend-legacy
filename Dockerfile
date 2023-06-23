@@ -1,5 +1,6 @@
 #Use a imagem oficial do PHP como base
 FROM php:7.4-apache
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Atualizar imagem e instalar bibliotecas necessarias
 RUN apt-get update && apt-get install -y \
@@ -16,7 +17,7 @@ RUN { \
     #Set MySQL root password for silent installation
     echo mysql-community-server mysql-community-server/root-pass password 'admin123'; \
     echo mysql-community-server mysql-community-server/re-root-poss password 'admin123'>
-    } | debconf-set-selections \
+    } \
     && apt-get install -y mysql-server \
     && mkdir -p /var/lib/mysql /var/run/mysqld \
     && chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
