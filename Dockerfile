@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 # Instalar extenções do php
 RUN docker-php-ext-install mysqli pdo pdo_mysql intl
 
+RUN apt install -y default-mysql-server
 # Ativar Apache mod_rewrite
 RUN a2enmod rewrite
 
