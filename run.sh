@@ -14,6 +14,9 @@ cp vendor/codeigniter4/framework/spark
 # apt-get autoclean mysql-server mysql-client mysql-common -y
 
 # apt-get install mysql-server mysql-common mysql-client -y
+apt-get remove mysql-server
+apt-get remove mysql-client
+apt-get remove mysql-common
 
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 sudo apt-get install -y -q
