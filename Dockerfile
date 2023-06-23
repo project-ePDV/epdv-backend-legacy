@@ -1,4 +1,4 @@
-# Use a imagem oficial do PHP como base
+oy# Use a imagem oficial do PHP como base
 FROM php:7.4-apache
 
 # Atualizar imagem e instalar bibliotecas necessarias
@@ -24,11 +24,11 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     rm composer-setup.php
 
 # Baixar e extrair CodeIgniter 4
-RUN curl -LOk https://github.com/project-ePDV/epdv-backend/archive/refs/heads/main.zip  
-RUN unzip main.zip
-RUN rm main.zip     
-RUN mv epdv-backend-main/* .
-RUN rm -rf epdv-backend-main
+RUN curl -LOk https://github.com/project-ePDV/epdv-backend/archive/refs/heads/deploy.zip  
+RUN unzip deploy.zip
+RUN rm deploy.zip     
+RUN mv epdv-backend-deploy/* .
+RUN rm -rf epdv-backend-deploy
 
 # Baixar e atualizar as dependências do projeto
 RUN composer install --no-dev --no-scripts --no-autoloader && \
