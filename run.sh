@@ -15,6 +15,9 @@ cp vendor/codeigniter4/framework/spark
 
 # apt-get install mysql-server mysql-common mysql-client -y
 
+echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+sudo apt-get install -y -q
+
 echo 'Install mysql'
 apt-get install mariadb-server mysql-common mariadb-client -y
 
