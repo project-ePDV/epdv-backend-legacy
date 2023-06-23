@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo 'hello world'
+echo 'Initializing....'
 composer install
 service mysql start
 mysql -u root -h localhost -e 'create database db_epdv'
