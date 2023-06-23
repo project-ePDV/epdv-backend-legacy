@@ -18,9 +18,6 @@ RUN mkdir -p /var/lib/mysql /var/run/mysqld
 RUN chown -R mysql:mysql /var/lib/mysql /var/run/mysqld 
 RUN chmod 777 /var/run/mysqld
 
-#Solve the problem that ubuntu cannot log in from another container
-RUN sed -i 's/bind-address/#bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
-
 #Expose the default port
 EXPOSE 3306
 # --------------------------------
