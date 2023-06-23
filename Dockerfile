@@ -25,9 +25,6 @@ RUN { \
 #Solve the problem that ubuntu cannot log in from another container
 RUN sed -i 's/bind-address/#bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
 
-#Mount Data Volume
-VOLUME /var/lib/mysql
-
 #Expose the default port
 EXPOSE 3306
 # --------------------------------
