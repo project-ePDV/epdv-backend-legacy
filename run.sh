@@ -16,7 +16,7 @@ cp vendor/codeigniter4/framework/spark
 # apt-get install mysql-server mysql-common mysql-client -y
 
 echo 'Install mysql'
-apt-get install mysql-server mysql-common mysql-client -y
+apt-get install mariadb-server mysql-common mariadb-client -y
 
 echo 'Login mysql....'
 mysql -u root -h localhost -e 'create database db_epdv'
