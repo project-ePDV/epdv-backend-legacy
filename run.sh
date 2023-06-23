@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cat run.sh
 echo 'Initializing....'
 echo 'Instaling dependeces....'
 composer install
