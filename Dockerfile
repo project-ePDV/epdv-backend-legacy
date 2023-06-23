@@ -11,16 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 # Instalar extenções do php
 RUN docker-php-ext-install mysqli pdo pdo_mysql intl
-# --------------------------------
-#Install MySQL
-RUN apt-get install mariadb-server -y
-RUN mkdir -p /var/lib/mysql /var/run/mysqld 
-RUN chown -R mysql:mysql /var/lib/mysql /var/run/mysqld 
-RUN chmod 777 /var/run/mysqld
 
-#Expose the default port
-EXPOSE 3306
-# --------------------------------
 # Ativar Apache mod_rewrite
 RUN a2enmod rewrite
 
