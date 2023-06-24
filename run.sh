@@ -16,11 +16,6 @@ sudo apt-get install mariadb-server mariadb-client -y
 mysql -V
 #-------------------
 
-echo 'Install mysql'
-apt-get install mariadb-server mysql-common mariadb-client -y
-
-chmod 777 /var/run/mysqld/mysqld.sock
-
 echo 'Login mysql....'
 mysql -u root -h localhost -e 'create database db_epdv'
 
