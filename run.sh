@@ -3,7 +3,8 @@ cat run.sh
 echo 'Initializing....'
 echo 'Instaling dependeces....'
 rm -rf vendor/
-composer install
+composer update
+cp vendor/codeigniter4/framework/spark .
 
 #-------------------
 
