@@ -2,10 +2,8 @@
 cat run.sh
 echo 'Initializing....'
 echo 'Instaling dependeces....'
-composer self-update
 rm -rf vendor/
-composer update
-cp vendor/codeigniter4/framework/spark .
+composer install
 
 # apt-get purge mysql-server mysql-common -y
 # apt-get purge mysql-client -y
