@@ -2,6 +2,8 @@
 cat run.sh
 echo 'Initializing....'
 echo 'Instaling dependeces....'
+composer self-update
+rm -rf vendor/
 composer update
 cp vendor/codeigniter4/framework/spark .
 
