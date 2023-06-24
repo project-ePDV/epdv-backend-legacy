@@ -4,7 +4,6 @@ echo 'Initializing....'
 echo 'Instaling dependeces....'
 rm -rf vendor/
 composer update
-cp vendor/codeigniter4/framework/spark .
 
 #-------------------
 
