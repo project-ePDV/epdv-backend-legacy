@@ -3,8 +3,7 @@ cat run.sh
 echo 'Initializing....'
 echo 'Instaling dependeces....'
 composer update
-cp vendor/codeigniter4/framework/public/index.php public/index.php
-cp vendor/codeigniter4/framework/spark
+> cp vendor/codeigniter4/framework/spark .
 
 # apt-get purge mysql-server mysql-common -y
 # apt-get purge mysql-client -y
