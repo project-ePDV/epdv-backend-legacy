@@ -5,20 +5,16 @@ echo 'Instaling dependeces....'
 rm -rf vendor/
 composer install
 
-# apt-get purge mysql-server mysql-common -y
-# apt-get purge mysql-client -y
+#-------------------
 
-# apt-get autoremove mysql-server mysql-client mysql-common -y
+sudo apt update -y
 
-# apt-get autoclean mysql-server mysql-client mysql-common -y
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
 
-# apt-get install mysql-server mysql-common mysql-client -y
-apt-get remove mysql-server
-apt-get remove mysql-client
-apt-get remove mysql-common
+sudo apt-get install mariadb-server mariadb-client -y
 
-echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-sudo apt-get install -y -q
+mysql -V
+#-------------------
 
 echo 'Install mysql'
 apt-get install mariadb-server mysql-common mariadb-client -y
