@@ -13,6 +13,8 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
 
 apt-get install mariadb-server mariadb-client -y
 
+/etc/init.d/mysql start
+
 mysql -V
 #-------------------
 
