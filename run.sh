@@ -7,11 +7,11 @@ composer update
 
 #-------------------
 
-sudo apt update -y
+apt update -y
 
 curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
 
-sudo apt-get install mariadb-server mariadb-client -y
+apt-get install mariadb-server mariadb-client -y
 
 mysql -V
 #-------------------
