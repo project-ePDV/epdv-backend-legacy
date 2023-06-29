@@ -3,7 +3,7 @@ cat run.sh
 echo 'Initializing....'
 echo 'Instaling dependeces....'
 rm -rf vendor/
-composer update
+composer install
 
 #-------------------
 
